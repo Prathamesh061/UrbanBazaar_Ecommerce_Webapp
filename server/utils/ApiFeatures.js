@@ -5,23 +5,23 @@ class ApiFeatures {
   }
 
   search() {
-    const keyword = this.queryParams.keyword
+    const name = this.queryParams.name
       ? {
           name: {
-            $regex: this.queryParams.keyword,
+            $regex: this.queryParams.name,
             $options: "i",
           },
         }
       : {};
 
-    this.query = this.query.find({ ...keyword });
+    this.query = this.query.find({ ...name });
     return this;
   }
 
   filter() {
     const queryCopy = { ...this.queryParams };
     //   Removing some fields for category
-    const removeFields = ["keyword", "page", "limit", "sortBy"];
+    const removeFields = ["name", "page", "limit", "sortBy"];
 
     removeFields.forEach((key) => delete queryCopy[key]);
 
