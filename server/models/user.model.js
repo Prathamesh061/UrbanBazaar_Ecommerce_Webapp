@@ -21,7 +21,7 @@ const eshop_user = new Schema(
     password: {
       type: String,
       required: [true, "Please, Enter your password"],
-      minLenth: [8, "Password should have at least 8 characters"],
+      minLength: [8, "Password should have at least 8 characters"],
       select: false,
     },
     avatar: {
@@ -65,8 +65,6 @@ eshop_user.methods.getJWTToken = function () {
 
 // Compare password
 eshop_user.methods.comparePassword = async function (password) {
-  console.log(this.password);
-  console.log(password);
   return await bcrypt.compare(password, this.password);
 };
 

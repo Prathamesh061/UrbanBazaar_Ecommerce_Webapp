@@ -62,6 +62,11 @@ const eshop_product = new Schema(
         },
       },
     ],
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "eshop_product",
+      required: true,
+    },
   },
   {
     timestamps: true,

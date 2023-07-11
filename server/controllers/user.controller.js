@@ -1,6 +1,7 @@
 const { catchAsyncError } = require("../middlewares");
 const ErrorHandler = require("../utils/errorHandler");
 const UserModel = require("../models/user.model");
+const sendJWTTokenCookie = require("../utils/setJWTTokenCookie");
 
 // To Register a user
 exports.registerUser = catchAsyncError(async (req, res) => {
@@ -16,13 +17,7 @@ exports.registerUser = catchAsyncError(async (req, res) => {
     },
   });
 
-  const token = user.getJWTToken();
-
-  res.status(201).json({
-    success: true,
-    user,
-    token,
-  });
+  sendJWTTokenCookie(user, 201, res);
 });
 
 // Login User
@@ -47,10 +42,14 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Invalid user credentials", 401));
   }
 
-  const token = user.getJWTToken();
+  sendJWTTokenCookie(user, 200, res);
+});
+
+exports.logoutUser = catchAsyncError(async (req, res) => {
+  res.clearCookie("token", { httpOnly: true });
 
   res.status(200).json({
     success: true,
-    token,
+    message: "Logged Out",
   });
 });
