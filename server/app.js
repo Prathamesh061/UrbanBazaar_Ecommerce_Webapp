@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 require("./routes/product.route")(app);
+require("./routes/user.route")(app);
 
 /**
  *  Page not found
