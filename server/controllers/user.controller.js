@@ -3,6 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const UserModel = require("../models/user.model");
 const sendJWTTokenCookie = require("../utils/setJWTTokenCookie");
 const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 // To Register a user
 exports.registerUser = catchAsyncError(async (req, res) => {
@@ -93,4 +94,36 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
     return next(new ErrorHandler(err.message, 500));
   }
+});
+
+exports.resetPassword = catchAsyncError(async (req, res, next) => {
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await UserModel.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: {
+      $gt: Date.now(),
+    },
+  });
+
+  if (!user) {
+    return next(
+      new ErrorHandler("Reset password link is invalid or expired.", 401)
+    );
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Password does not match.", 401));
+  }
+
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  sendJWTTokenCookie(user, 200, res);
 });
