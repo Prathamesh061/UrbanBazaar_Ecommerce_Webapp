@@ -2,6 +2,7 @@ const { catchAsyncError } = require("../middlewares");
 const ErrorHandler = require("../utils/errorHandler");
 const UserModel = require("../models/user.model");
 const sendJWTTokenCookie = require("../utils/setJWTTokenCookie");
+const sendEmail = require("../utils/sendEmail");
 
 // To Register a user
 exports.registerUser = catchAsyncError(async (req, res) => {
@@ -52,4 +53,44 @@ exports.logoutUser = catchAsyncError(async (req, res) => {
     success: true,
     message: "Logged Out",
   });
+});
+
+exports.forgotPassword = catchAsyncError(async (req, res, next) => {
+  const user = await UserModel.findOne({
+    email: req.body.email,
+  });
+
+  if (!user) {
+    next(new ErrorHandler("User not Found", 404));
+  }
+
+  // Get reset password token
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save();
+
+  const resetPasswordURL = `${req.protocol}://${req.get(
+    "host"
+  )}/eshop/api/v1/password/reset/${resetToken}`;
+
+  try {
+    await sendEmail({
+      name: user.name,
+      email: user.email,
+      subject: "UrbanBazaar Password Recovery",
+      resetPasswordURL,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.email} successfully.`,
+    });
+  } catch (err) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    return next(new ErrorHandler(err.message, 500));
+  }
 });
