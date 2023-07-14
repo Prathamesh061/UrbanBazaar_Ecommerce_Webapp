@@ -127,3 +127,12 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
   sendJWTTokenCookie(user, 200, res);
 });
+
+exports.getDetails = catchAsyncError(async (req, res, next) => {
+  const user = await UserModel.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
