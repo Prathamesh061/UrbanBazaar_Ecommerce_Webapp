@@ -18,4 +18,27 @@ module.exports = (app) => {
     [auth.authJWT],
     userController.updateProfile
   );
+  app.get(
+    "/eshop/api/v1/admin/users",
+    [auth.authJWT, auth.authorizeRoles("admin")],
+    userController.getAllUser
+  );
+
+  app.get(
+    "/eshop/api/v1/admin/users/:id",
+    [auth.authJWT, auth.authorizeRoles("admin")],
+    userController.getUserById
+  );
+
+  app.put(
+    "/eshop/api/v1/admin/users/:id",
+    [auth.authJWT, auth.authorizeRoles("admin")],
+    userController.updateUserRole
+  );
+
+  app.delete(
+    "/eshop/api/v1/admin/users/:id",
+    [auth.authJWT, auth.authorizeRoles("admin")],
+    userController.deleteUser
+  );
 };

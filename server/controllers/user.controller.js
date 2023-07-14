@@ -4,6 +4,7 @@ const UserModel = require("../models/user.model");
 const sendJWTTokenCookie = require("../utils/setJWTTokenCookie");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const User = require("../models/user.model");
 
 // To Register a user
 exports.registerUser = catchAsyncError(async (req, res) => {
@@ -171,5 +172,70 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+  });
+});
+
+exports.getAllUser = catchAsyncError(async (req, res, next) => {
+  const users = await UserModel.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+exports.getUserById = catchAsyncError(async (req, res, next) => {
+  const user = await UserModel.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id:${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await UserModel.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: true,
+  });
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+  const user = await UserModel.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+    );
+  }
+
+  await user.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    message: `User with Id:${req.params.id} deleted successfully`,
   });
 });
