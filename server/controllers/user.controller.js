@@ -136,3 +136,23 @@ exports.getDetails = catchAsyncError(async (req, res, next) => {
     user,
   });
 });
+
+exports.updatePassword = catchAsyncError(async (req, res, next) => {
+  const user = await UserModel.findById(req.user.id).select("+password");
+
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Confirm Password does not match", 400));
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  sendJWTTokenCookie(user, 200, res);
+});
