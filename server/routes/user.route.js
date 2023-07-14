@@ -13,4 +13,9 @@ module.exports = (app) => {
   );
   app.put("/eshop/api/v1/password/reset/:token", userController.resetPassword);
   app.get("/eshop/api/v1/me", [auth.authJWT], userController.getDetails);
+  app.put(
+    "/eshop/api/v1/me/update",
+    [auth.authJWT],
+    userController.updateProfile
+  );
 };

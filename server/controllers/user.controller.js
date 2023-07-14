@@ -156,3 +156,20 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 
   sendJWTTokenCookie(user, 200, res);
 });
+
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  const user = await UserModel.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: true,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
