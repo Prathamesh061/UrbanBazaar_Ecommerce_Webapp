@@ -23,4 +23,10 @@ module.exports = (app) => {
     [auth.authJWT, auth.authorizeRoles("admin")],
     productController.deleteProduct
   );
+
+  app.put(
+    "/eshop/api/v1/product/review",
+    [auth.authJWT],
+    productController.createProductReview
+  );
 };

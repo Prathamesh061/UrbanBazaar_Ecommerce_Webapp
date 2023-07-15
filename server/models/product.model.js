@@ -48,6 +48,11 @@ const eshop_product = new Schema(
     },
     reviews: [
       {
+        user: {
+          type: mongoose.Schema.ObjectId,
+          ref: "eshop_product",
+          required: true,
+        },
         name: {
           type: String,
           required: true,
