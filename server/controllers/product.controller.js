@@ -1,4 +1,5 @@
 const { catchAsyncError } = require("../middlewares");
+const Product = require("../models/product.model");
 const ProductModel = require("../models/product.model");
 const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
@@ -119,6 +120,73 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
   product.rating = avg / product.reviews.length;
 
   await product.save();
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.getAllReviews = catchAsyncError(async (req, res, next) => {
+  console.log(req.query);
+  console.log("getAllReviews called");
+  const product = await ProductModel.findById(req.query.productId);
+
+  if (!product) {
+    return next(new ErrorHandler("Product Not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    reviews: product.reviews,
+  });
+});
+
+exports.deleteReview = catchAsyncError(async (req, res, next) => {
+  const product = await ProductModel.findById(req.query.productId);
+
+  if (!product) {
+    return next(new ErrorHandler("Product Not found", 404));
+  }
+
+  const reviewTobeDelete = product.reviews.find(
+    (rev) => rev.id.toString() === req.query.id.toString()
+  );
+
+  if (
+    req.user.role !== "admin" ||
+    reviewTobeDelete.user.toString() !== req.user.id.toString()
+  ) {
+    return next(
+      new ErrorHandler("Only Admin can access Or The owner of the review", 401)
+    );
+  }
+
+  const reviews = product.reviews.filter(
+    (rev) => rev.id.toString() !== req.query.id.toString()
+  );
+
+  let avg = 0;
+
+  reviews.forEach((rev) => {
+    avg += rev.rating;
+  });
+
+  const rating = avg / reviews.length;
+
+  const numOfReviews = reviews.length;
+
+  await Product.findByIdAndUpdate(
+    req.query.productId,
+    {
+      reviews,
+      rating,
+      numOfReviews,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   res.status(200).json({
     success: true,
