@@ -2,13 +2,13 @@ const productController = require("../controllers/product.controller");
 const { auth } = require("../middlewares");
 // route to save a new product to the database
 module.exports = (app) => {
-  app.get("/eshop/api/v1/product/reviews", productController.getAllReviews);
-
   app.delete(
     "/eshop/api/v1/product/reviews",
     [auth.authJWT],
     productController.deleteReview
   );
+
+  app.get("/eshop/api/v1/product/reviews", productController.getAllReviews);
 
   app.post(
     "/eshop/api/v1/admin/products",

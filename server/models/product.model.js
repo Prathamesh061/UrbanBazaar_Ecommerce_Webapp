@@ -50,7 +50,7 @@ const eshop_product = new Schema(
       {
         user: {
           type: mongoose.Schema.ObjectId,
-          ref: "eshop_product",
+          ref: "eshop_user",
           required: true,
         },
         name: {

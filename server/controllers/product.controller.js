@@ -95,6 +95,10 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 
   const product = await ProductModel.findById(productId);
 
+  if (!product) {
+    return next(new ErrorHandler("Product not found...", 500));
+  }
+
   const isReviewed = product.reviews.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
@@ -153,8 +157,9 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
   );
 
   if (
-    req.user.role !== "admin" ||
-    reviewTobeDelete.user.toString() !== req.user.id.toString()
+    !(req.user.role === "admin") &&
+    (req.user.role === "admin" ||
+      reviewTobeDelete.user.toString() !== req.user.id.toString())
   ) {
     return next(
       new ErrorHandler("Only Admin can access Or The owner of the review", 401)
@@ -172,14 +177,13 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
   });
 
   const rating = avg / reviews.length;
-
   const numOfReviews = reviews.length;
 
   await Product.findByIdAndUpdate(
     req.query.productId,
     {
       reviews,
-      rating,
+      rating: rating || 0,
       numOfReviews,
     },
     {
