@@ -46,7 +46,7 @@ const eshop_order = new Schema({
         type: String,
         required: true,
       },
-      product: {
+      productId: {
         type: mongoose.Schema.ObjectId,
         ref: "eshop_product",
         required: true,

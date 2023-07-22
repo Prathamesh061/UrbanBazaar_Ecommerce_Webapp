@@ -1,10 +1,20 @@
 const orderController = require("../controllers/order.controller");
-const { auth } = require("../middlewares");
+const { authorizeRoles, authJWT } = require("../middlewares/auth");
 
 module.exports = (app) => {
-  app.post(
-    "/eshop/api/v1/order/new",
-    [auth.authJWT, auth.authorizeRoles("admin")],
-    orderController.createOrder
+  app.post("/eshop/api/v1/order/new", [authJWT], orderController.createOrder);
+
+  app.get(
+    "/eshop/api/v1/order/:id",
+    [authJWT, authorizeRoles("admin")],
+    orderController.getOrderDetails
   );
+
+  app.get(
+    "/eshop/api/v1/orders",
+    [authJWT, authorizeRoles("admin")],
+    orderController.getAllOrderDetails
+  );
+
+  app.get("/eshop/api/v1/orders/me", [authJWT], orderController.myOrders);
 };

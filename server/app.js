@@ -35,6 +35,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 require("./routes/product.route")(app);
 require("./routes/user.route")(app);
+require("./routes/order.route")(app);
 
 /**
  *  Page not found
