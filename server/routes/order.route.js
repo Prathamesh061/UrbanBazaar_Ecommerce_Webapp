@@ -17,4 +17,16 @@ module.exports = (app) => {
   );
 
   app.get("/eshop/api/v1/orders/me", [authJWT], orderController.myOrders);
+
+  app.put(
+    "/eshop/api/v1/order/:id",
+    [authJWT, authorizeRoles("admin")],
+    orderController.updateOrder
+  );
+
+  app.delete(
+    "/eshop/api/v1/order/:id",
+    [authJWT, authorizeRoles("admin")],
+    orderController.deleteOrder
+  );
 };
