@@ -1,0 +1,9 @@
+.footer {
+    position: sticky;
+    top: 100%;
+    background: #111;
+    color: var(--clr-sunset-orange);
+    text-align: center;
+    font-size: var(--fs-h3);
+    padding: 1em 0;
+}
