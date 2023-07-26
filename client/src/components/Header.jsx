@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./css/header.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { HiSearch } from "react-icons//hi";
 
 function Header() {
   function handleNavClick() {
@@ -76,6 +77,11 @@ function Header() {
         </ul>
 
         <ul className="nav__list">
+          <li className="nav__item">
+            <button className="search-btn">
+              <HiSearch />
+            </button>
+          </li>
           <li className="nav__item">
             <NavLink
               to="/cart"
