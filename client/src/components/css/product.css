@@ -1,0 +1,32 @@
+.product-card {
+    text-align: center;
+    background: var(--clr-dark);
+    color: var(--clr-light);
+    padding: 0.5em;
+    margin: 1em;
+    max-width: 250px;
+    box-shadow: var(--bs);
+}
+
+.product-poster {
+    width: 100%;
+    transition: all .5s ease-in-out;
+}
+
+.product-rating {
+    color: var(--clr-sunset-orange);
+    font-weight: var(--fw-bold);
+}
+
+.product-title {
+    font-size: var(--fs-body);
+}
+
+.img-container {
+    overflow: hidden;
+}
+
+.product-poster:focus,
+.product-poster:hover {
+    transform: scale(1.2);
+}

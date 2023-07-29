@@ -4,15 +4,31 @@
 }
 
 .home-header {
-    text-align: center;
     font-family: var(--ff-primary);
     margin-bottom: 1.5em;
     margin: .5em auto;
     width: max-content;
-    border-bottom: 4px solid var(--clr-sunset-orange);
-    padding-bottom: .5em;
 }
 
+.home-header::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: var(--clr-sunset-orange);
+    margin-top: .3em;
+}
+
+.product-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+    padding: 1em 1.5em;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 0.4rem;
+}
 
 @media (max-width: 600px) {
     .home-header {

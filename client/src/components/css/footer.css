@@ -1,6 +1,12 @@
-.footer {
-    position: sticky;
-    top: 100%;
+.footer-info-container {
+    background: var(--clr-dark);
+
+}
+
+.footer-info {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     background: var(--clr-dark);
     color: var(--clr-sunset-orange);
     text-align: center;
@@ -22,8 +28,9 @@ section {
     font-size: var(--fs-body);
 }
 
-.footer__about {
+.footer-info__about {
     text-align: center;
+    margin-bottom: 0;
 }
 
 .social-list {
@@ -50,10 +57,9 @@ section {
     color: var(--clr-sunset-orange);
 }
 
-.footer__about {
+.footer-info__about {
     padding: 1em 0;
     background: #111;
-    margin: -1em -2em;
     margin-top: 1em;
 }
 
@@ -65,32 +71,34 @@ section {
     text-decoration: underline;
 }
 
+/* .container {}? */
+
 @media (min-width: 800px) {
-    .footer {
+    .footer-info {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas:
             "moto contact address"
-            "about about";
+            "about about about";
         grid-column-gap: 1em;
     }
 
-    .footer__address {
+    .footer-info__address {
         grid-area: "address";
         justify-self: center;
     }
 
-    .footer__moto {
+    .footer-info__moto {
         grid-area: "moto";
         justify-self: center;
     }
 
-    .footer__contact {
+    .footer-info__contact {
         grid-area: "mailus";
         justify-self: center;
     }
 
-    .footer__about {
+    .footer-info__about {
         grid-area: "about";
         grid-column: 1 / -1;
     }
