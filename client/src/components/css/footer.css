@@ -1,9 +1,97 @@
 .footer {
     position: sticky;
     top: 100%;
-    background: #111;
+    background: var(--clr-dark);
     color: var(--clr-sunset-orange);
     text-align: center;
     font-size: var(--fs-h3);
+    padding: 1em 2em;
+}
+
+section {
+    margin-bottom: 1em;
+}
+
+.section__header {
+    color: var(--clr-sunset-orange);
+}
+
+.section__content {
+    color: var(--clr-light);
+    text-align: center;
+    font-size: var(--fs-body);
+}
+
+.footer__about {
+    text-align: center;
+}
+
+.social-list {
+    display: flex;
+    justify-content: center;
+    margin: 1em 0 0;
+    padding: 0;
+}
+
+.social-list__item {
+    margin: 0 .35em;
+}
+
+.social-list__link {
+    padding: .5em;
+}
+
+.social-list__link:focus,
+.social-list__link:hover {
+    opacity: .7;
+}
+
+.font-icon {
+    color: var(--clr-sunset-orange);
+}
+
+.footer__about {
     padding: 1em 0;
+    background: #111;
+    margin: -1em -2em;
+    margin-top: 1em;
+}
+
+.phone-number {
+    color: var(--clr-light);
+}
+
+.mail {
+    text-decoration: underline;
+}
+
+@media (min-width: 800px) {
+    .footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+            "moto contact address"
+            "about about";
+        grid-column-gap: 1em;
+    }
+
+    .footer__address {
+        grid-area: "address";
+        justify-self: center;
+    }
+
+    .footer__moto {
+        grid-area: "moto";
+        justify-self: center;
+    }
+
+    .footer__contact {
+        grid-area: "mailus";
+        justify-self: center;
+    }
+
+    .footer__about {
+        grid-area: "about";
+        grid-column: 1 / -1;
+    }
 }

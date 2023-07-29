@@ -1,0 +1,21 @@
+.home {
+    min-height: 50vh;
+    padding: 1em 1.5em;
+}
+
+.home-header {
+    text-align: center;
+    font-family: var(--ff-primary);
+    margin-bottom: 1.5em;
+    margin: .5em auto;
+    width: max-content;
+    border-bottom: 4px solid var(--clr-sunset-orange);
+    padding-bottom: .5em;
+}
+
+
+@media (max-width: 600px) {
+    .home-header {
+        border-width: 3px;
+    }
+}
