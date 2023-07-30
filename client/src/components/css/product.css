@@ -8,6 +8,10 @@
     box-shadow: var(--bs);
 }
 
+.product-title {
+    margin-top: 1em;
+}
+
 .product-poster {
     width: 100%;
     transition: all .5s ease-in-out;

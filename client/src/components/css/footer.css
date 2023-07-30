@@ -1,6 +1,7 @@
 .footer-info-container {
     background: var(--clr-dark);
-
+    position: sticky;
+    top: 100%;
 }
 
 .footer-info {

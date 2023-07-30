@@ -17,13 +17,13 @@ function Header() {
   return (
     <header className="header">
       <button
-        class="nav-toggle"
+        className="nav-toggle"
         aria-label="toggle navigation"
         onClick={() => {
           document.body.classList.toggle("nav-open");
         }}
       >
-        <span class="hamburger"></span>
+        <span className="hamburger"></span>
       </button>
 
       <div className="site-logo">

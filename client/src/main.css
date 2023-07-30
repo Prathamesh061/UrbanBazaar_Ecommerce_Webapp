@@ -7,3 +7,12 @@ body {
     font-size: var(--fs-body);
     line-height: 1.6;
 }
+
+::-webkit-scrollbar {
+    width: .5em;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: var(--clr-sunset-orange);
+}

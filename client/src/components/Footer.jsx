@@ -47,32 +47,35 @@ function Footer() {
           &#169; {new Date().getFullYear()} UrbanBazaar
         </h3>
 
-        <ul class="social-list">
-          <li class="social-list__item">
+        <ul className="social-list">
+          <li className="social-list__item">
             <a
               href="https://www.linkedin.com/in/prathamesh-lakhapati-248395221"
-              class="social-list__link"
+              className="social-list__link"
             >
               <FontAwesomeIcon icon={faLinkedin} className="font-icon" />
             </a>
           </li>
-          <li class="social-list__item">
-            <a href="https://twitter.com/Hey_lack" class="social-list__link">
+          <li className="social-list__item">
+            <a
+              href="https://twitter.com/Hey_lack"
+              className="social-list__link"
+            >
               <FontAwesomeIcon icon={faTwitter} className="font-icon" />
             </a>
           </li>
-          <li class="social-list__item">
+          <li className="social-list__item">
             <a
               href="https://github.com/Prathamesh061"
-              class="social-list__link"
+              className="social-list__link"
             >
               <FontAwesomeIcon icon={faGithub} className="font-icon" />
             </a>
           </li>
-          <li class="social-list__item">
+          <li className="social-list__item">
             <a
               href="https://www.instagram.com/hey_lack/"
-              class="social-list__link"
+              className="social-list__link"
             >
               <FontAwesomeIcon icon={faInstagram} className="font-icon" />
             </a>

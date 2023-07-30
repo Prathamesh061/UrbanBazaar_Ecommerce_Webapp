@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./css/home.css";
 import Product from "./Product";
 import MetaData from "./MetaData";
+import { getProduct } from "../actions/productAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const product = {
   name: "Rocky shirt",
@@ -12,6 +14,11 @@ const product = {
 };
 
 function Home() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
   return (
     <div className="home">
       <MetaData title="UrbanBazaar | Home" />
