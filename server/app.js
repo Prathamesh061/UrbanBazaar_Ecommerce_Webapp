@@ -8,6 +8,7 @@ const usersRouter = require("./routes/users");
 require("./utils/database")(); // Database initialization
 const { catchError } = require("./middlewares");
 const ErrorHandler = require("./utils/errorHandler");
+const cors = require("cors");
 const app = express();
 
 /**
@@ -22,6 +23,7 @@ app.set("view engine", "hbs");
  */
 
 app.use(logger("dev"));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

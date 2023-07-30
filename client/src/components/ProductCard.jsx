@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import "./css/product.css";
+import "./css/productCard.css";
 
 function Product({ product }) {
   return (
     <div key={product.id} className="product-card">
-      <Link to={product._id}>
+      <Link to={`/product/${product._id}`}>
         <div className="img-container">
           <img
             src={`${product.images[0].url}`}
@@ -20,10 +20,15 @@ function Product({ product }) {
 
         <p className="product-rating">
           {product.rating}
-          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faStar} /> ({product.numOfReviews} reviews)
         </p>
 
-        <p className="product-price">{product.price}</p>
+        <p className="product-price">
+          {new Intl.NumberFormat("en-HI", {
+            style: "currency",
+            currency: "INR",
+          }).format(product.price)}
+        </p>
       </Link>
     </div>
   );

@@ -1,40 +1,39 @@
 import React, { useEffect } from "react";
 import "./css/home.css";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 import MetaData from "./MetaData";
 import { getProduct } from "../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-
-const product = {
-  name: "Rocky shirt",
-  images: [{ url: "http://localhost:5173/1.jpg" }],
-  price: "Rs. 3000",
-  _id: "Lalu",
-  rating: 5,
-};
+import Loader from "./Loader";
+import { ALL_PRODUCT_FAIL } from "../constants/productConstants";
 
 function Home() {
   const dispatch = useDispatch();
+  const { loading, error, products, productsCount } = useSelector(
+    (state) => state.products
+  );
+
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
 
   return (
-    <div className="home">
-      <MetaData title="UrbanBazaar | Home" />
-      <h2 className="home-header">Featured Products</h2>
-      <div className="product-container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="home">
+          <MetaData title="UrbanBazaar | Home" />
+          <h2 className="home-header">Featured Products</h2>
+          <div className="product-container">
+            {products &&
+              products.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
