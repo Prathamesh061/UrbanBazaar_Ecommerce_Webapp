@@ -37,7 +37,7 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
       resultPerPage,
       filteredProductsCount,
     });
-  }, 2000);
+  }, 300);
 });
 
 exports.getDetails = catchAsyncError(async (req, res, next) => {

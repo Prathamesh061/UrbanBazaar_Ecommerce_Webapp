@@ -11,6 +11,8 @@
 }
 
 .product-title {
+    font-weight: var(--fw-bold);
+    color: var(--clr-sunset-orange);
     margin-top: 1em;
 }
 
@@ -20,7 +22,6 @@
 }
 
 .product-rating {
-    color: var(--clr-sunset-orange);
     font-weight: var(--fw-bold);
 }
 

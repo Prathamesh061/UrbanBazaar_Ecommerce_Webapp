@@ -21,6 +21,7 @@ section {
 
 .section__header {
     color: var(--clr-sunset-orange);
+    font-weight: var(--fw-bold);
 }
 
 .section__content {

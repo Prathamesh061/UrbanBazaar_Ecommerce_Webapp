@@ -59,6 +59,28 @@ ul {
     list-style: none;
 }
 
+button {
+    border: 0;
+}
+
+.icon-clr {
+    color: var(--clr-sunset-orange);
+}
+
+.red-color {
+    color: #CC3636;
+}
+
+.green-color {
+    color: green;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 /* :focus {
     outline: 3px solid var(--clr-sunset-orange);
     outline-offset: 3px;
@@ -99,9 +121,9 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: var(--fw-bold);
-    transition: transform 200ms ease-in-out;
+    transition: transform 300ms ease-in-out;
 }
 
 .btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.07);
 }

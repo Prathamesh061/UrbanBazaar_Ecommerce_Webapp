@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import "./css/productCard.css";
+import "./productCard.css";
 
 function Product({ product }) {
   return (
@@ -20,7 +20,8 @@ function Product({ product }) {
 
         <p className="product-rating">
           {product.rating}
-          <FontAwesomeIcon icon={faStar} /> ({product.numOfReviews} reviews)
+          <FontAwesomeIcon icon={faStar} className="icon-clr" /> (
+          {product.numOfReviews} reviews)
         </p>
 
         <p className="product-price">

@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import "./css/home.css";
-import ProductCard from "./ProductCard";
-import MetaData from "./MetaData";
-import { getProduct } from "../actions/productAction";
+import "./home.css";
+import ProductCard from "../ProductCard/ProductCard";
+import MetaData from "../Utility/MetaData";
+import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "./Loader";
-import { ALL_PRODUCT_FAIL } from "../constants/productConstants";
+import Loader from "../Layout/Loader/Loader";
 
 function Home() {
   const dispatch = useDispatch();

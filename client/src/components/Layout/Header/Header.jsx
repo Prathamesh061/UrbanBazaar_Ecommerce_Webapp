@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import "./css/header.css";
+import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { HiSearch } from "react-icons//hi";
