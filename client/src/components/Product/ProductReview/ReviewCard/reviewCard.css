@@ -1,0 +1,43 @@
+.review-card {
+    width: 300px;
+    box-shadow: var(--bs);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
+    max-width: 100%;
+    flex: none;
+}
+
+.avatar {
+    padding: .5em;
+}
+
+.review-rating {
+    padding-top: .7em;
+    text-align: center;
+}
+
+.review-comment {
+    text-align: center;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-reg);
+    font-family: var(--ff-primary);
+}
+
+@media (min-width: 600px) {
+    .review-card {
+        width: 70%;
+    }
+}
+
+.no-reviews {
+    display: grid;
+    place-items: center;
+    grid-column: 1/-1;
+    height: 20vh;
+    font-weight: var(--fw-bold);
+    opacity: .5;
+}

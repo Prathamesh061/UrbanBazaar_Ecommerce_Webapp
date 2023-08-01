@@ -7,7 +7,7 @@ import "./productCard.css";
 function Product({ product }) {
   return (
     <div key={product.id} className="product-card">
-      <Link to={`/product/${product._id}`}>
+      <Link to={`/products/${product._id}`}>
         <div className="img-container">
           <img
             src={`${product.images[0].url}`}

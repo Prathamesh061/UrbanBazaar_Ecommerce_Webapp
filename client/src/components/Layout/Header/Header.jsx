@@ -46,7 +46,7 @@ function Header() {
           </li>
           <li className="nav__item">
             <NavLink
-              to="/product"
+              to="/products"
               style={({ isActive }) => (isActive ? activeStyles : null)}
               className="nav__link"
               onClick={handleNavClick}

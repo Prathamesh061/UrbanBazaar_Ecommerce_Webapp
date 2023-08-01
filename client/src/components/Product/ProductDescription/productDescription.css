@@ -1,0 +1,7 @@
+.product-description {
+    padding: 1em;
+    font-family: var(--ff-secondary);
+    font-size: var(--fs-body);
+    text-align: center;
+    grid-column: 1/-1;
+}

@@ -1,0 +1,10 @@
+.reviews-container {
+    width: 100%;
+    grid-column: 1/-1;
+    font-size: var(--fs-body);
+    font-family: var(--ff-primary);
+    justify-self: center;
+    display: flex;
+    overflow-x: auto;
+    align-items: center;
+}

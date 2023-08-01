@@ -3,7 +3,7 @@ import "./productDetails.css";
 import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../../actions/productAction";
-import { useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,12 @@ const ProductDetails = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
+
+  const activeStyles = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "#ffa506",
+  };
 
   useEffect(() => {
     dispatch(getProductDetails(params.id));
@@ -76,14 +82,29 @@ const ProductDetails = () => {
                   </b>
                 </div>
 
-                <h3 className="description-header">Description</h3>
-                <div className="product-description">{product.description}</div>
-
                 <button className="submit-review btn">Submit Review</button>
               </>
             ) : null}
           </div>
         </div>
+        <nav className="product-detail-nav">
+          <NavLink
+            to="."
+            end
+            style={({ isActive }) => (isActive ? activeStyles : null)}
+            className={"product-detail-nav__item"}
+          >
+            Reviews
+          </NavLink>
+          <NavLink
+            to="description"
+            style={({ isActive }) => (isActive ? activeStyles : null)}
+            className={"product-detail-nav__item"}
+          >
+            Description
+          </NavLink>
+        </nav>
+        {product && <Outlet context={{ product }} />}
       </div>
     </>
   );

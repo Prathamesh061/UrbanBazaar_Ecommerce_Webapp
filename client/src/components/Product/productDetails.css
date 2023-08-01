@@ -71,6 +71,24 @@
     padding: .5em 2.5em;
 }
 
+.product-detail-nav {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: var(--fw-bold);
+    color: var(--clr-dark);
+    display: flex;
+    justify-content: space-around;
+    grid-column: 1/-1;
+    background: transparent;
+    box-shadow: var(--bs);
+    margin-bottom: 1em;
+}
+
+.product-detail-nav .product-detail-nav__item {
+    color: var(--clr-dark);
+}
+
 @media (min-width: 600px) {
     .product-details-container {
         display: grid;
