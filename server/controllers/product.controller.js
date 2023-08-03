@@ -17,7 +17,6 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   const resultPerPage = 8;
-  const productsCount = await ProductModel.countDocuments();
 
   const apiFeature = new ApiFeatures(ProductModel, req.query)
     .search()
@@ -26,6 +25,15 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
     .sort();
 
   let products = await apiFeature.query;
+
+  let tempProducts = await ProductModel.aggregate([
+    {
+      $match: {
+        $or: [{ name: { $regex: req.query.name, $options: "i" } }],
+      },
+    },
+  ]);
+  productsCount = tempProducts.length;
 
   let filteredProductsCount = products.length;
 
