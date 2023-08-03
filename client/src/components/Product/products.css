@@ -1,0 +1,21 @@
+.products-header {
+    font-family: var(--ff-primary);
+    margin-bottom: 1.5em;
+    margin: .5em auto;
+    width: max-content;
+}
+
+.products-header::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: var(--clr-sunset-orange);
+    margin-top: .3em;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    margin-bottom: 1em;
+}

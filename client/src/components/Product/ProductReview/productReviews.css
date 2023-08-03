@@ -1,5 +1,4 @@
 .reviews-container {
-    width: 100%;
     grid-column: 1/-1;
     font-size: var(--fs-body);
     font-family: var(--ff-primary);
@@ -7,4 +6,8 @@
     display: flex;
     overflow-x: auto;
     align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 1em;
+    -webkit-overflow-scrolling: touch;
 }

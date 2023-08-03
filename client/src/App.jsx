@@ -2,9 +2,10 @@ import "./app.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home";
-import ProductDetails from "./components/Product/ProductDetails";
+import ProductDetails from "./components/Product/ProductDetails/ProductDetails";
 import ProductDescription from "./components/Product/ProductDescription/ProductDescription";
 import ProductReviews from "./components/Product/ProductReview/ProductReviews";
+import Products from "./components/Product/Products";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
             <Route index element={<ProductReviews />} />
             <Route path="description" element={<ProductDescription />} />
           </Route>
-          <Route path="/products" element={<h1>product</h1>} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/search/:productName" element={<Products />} />
           <Route path="/contact" element={<h1>contact</h1>} />
           <Route path="/about" element={<h1>about</h1>} />
           <Route path="/profile" element={<h1>Profile</h1>} />

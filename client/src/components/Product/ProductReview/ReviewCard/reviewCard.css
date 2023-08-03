@@ -1,5 +1,4 @@
 .review-card {
-    width: 300px;
     box-shadow: var(--bs);
     border-radius: 1em;
     display: flex;
@@ -7,8 +6,8 @@
     align-items: center;
     margin: 1em;
     padding: 1em;
-    max-width: 100%;
-    flex: none;
+    scroll-snap-align: center;
+    flex: 0 0 100%;
 }
 
 .avatar {
@@ -25,12 +24,6 @@
     font-size: var(--fs-body);
     font-weight: var(--fw-reg);
     font-family: var(--ff-primary);
-}
-
-@media (min-width: 600px) {
-    .review-card {
-        width: 70%;
-    }
 }
 
 .no-reviews {

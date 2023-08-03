@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./productCard.css";
 
-function Product({ product }) {
+function ProductCard({ product }) {
   return (
     <div key={product.id} className="product-card">
       <Link to={`/products/${product._id}`}>
@@ -35,4 +35,4 @@ function Product({ product }) {
   );
 }
 
-export default Product;
+export default ProductCard;

@@ -121,7 +121,7 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: var(--fw-bold);
-    transition: transform 300ms ease-in-out;
+    transition: transform 300ms linear;
 }
 
 .btn:hover {

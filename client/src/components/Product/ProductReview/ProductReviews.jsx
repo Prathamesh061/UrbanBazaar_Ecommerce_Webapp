@@ -11,7 +11,9 @@ function ProductReviews() {
       {product.reviews && product.reviews[0] ? (
         <div className="reviews-container">
           {product.reviews &&
-            product.reviews.map((review) => <ReviewCard review={review} />)}
+            product.reviews.map((review) => (
+              <ReviewCard key={review._id} review={review} />
+            ))}
         </div>
       ) : (
         <p className="no-reviews">No Reviews Yet...</p>

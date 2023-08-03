@@ -12,6 +12,13 @@
     position: relative;
 }
 
+.header-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
 
 
 .site-logo>a>img {
@@ -95,6 +102,12 @@
     border: none;
     font-size: var(--fs-h3);
     padding: 0;
+    cursor: pointer;
+}
+
+.search-btn:focus {
+    outline: 3px solid var(--clr-sunset-orange);
+    outline-offset: 3px;
 }
 
 @media (max-width: 800px) {

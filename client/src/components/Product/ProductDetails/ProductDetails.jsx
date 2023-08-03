@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import "./productDetails.css";
 import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductDetails } from "../../actions/productAction";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { getProductDetails } from "../../../actions/productAction";
+import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
 const ProductDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
+
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
@@ -28,6 +29,11 @@ const ProductDetails = () => {
   return (
     <>
       <div className="product-details-container">
+        <Link to={`..`} relative="path" className="back-btn">
+          &larr; <span>Back to all products</span>
+        </Link>
+        {product && <h3 className="product-name">{product.name}</h3>}
+
         <Carousel className="product-img-carousel">
           {product &&
             product.images.map((item, i) => (
@@ -44,7 +50,6 @@ const ProductDetails = () => {
           <div className="product-details">
             {product ? (
               <>
-                <h2 className="product-name">{product.name}</h2>
                 <div className="product-id">#{product._id}</div>
 
                 <div className="product-rating">

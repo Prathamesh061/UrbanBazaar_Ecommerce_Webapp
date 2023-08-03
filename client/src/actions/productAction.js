@@ -9,16 +9,15 @@ import {
 } from "../constants/productConstants";
 import axios from "axios";
 
-export function getProduct() {
+export function getProduct({ productName = "", page = 1 }) {
   return async (dispatch) => {
     try {
       dispatch({
         type: ALL_PRODUCT_REQUEST,
       });
 
-      const { data } = await axios.get(
-        "http://127.0.0.1:8000/eshop/api/v1/products"
-      );
+      const url = `http://127.0.0.1:8000/eshop/api/v1/products?name=${productName}&page=${page}`;
+      const { data } = await axios.get(url);
 
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
