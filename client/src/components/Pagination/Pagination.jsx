@@ -6,7 +6,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
     (state) => state.products
   );
 
-  const pageCount = Math.ceil(productsCount / resultPerPage);
+  const pageCount = Math.ceil(productsCount / resultPerPage) || 0;
   const prevButtonDisabled = currentPage === 1;
   const nextButtonDisabled = pageCount === 0 || currentPage === pageCount;
 

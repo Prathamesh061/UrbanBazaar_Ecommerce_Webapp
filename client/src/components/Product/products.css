@@ -19,3 +19,41 @@
     padding: 1em;
     margin-bottom: 1em;
 }
+
+.filter-container {
+    position: relative;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.products-filter {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+}
+
+.products-filter::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: var(--clr-sunset-orange);
+    margin-top: .3em;
+}
+
+.filter-list {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--bs);
+    padding: 1em;
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-reg);
+}
+
+.filter-item {
+    padding: .5em;
+    text-align: start;
+}
