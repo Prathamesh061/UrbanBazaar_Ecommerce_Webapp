@@ -6,7 +6,6 @@ import ProductCard from "../ProductCard/ProductCard";
 import "./products.css";
 import { useParams } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
-import RangeSlider from "../RangeSlider/RangeSlider";
 
 function Products() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,8 +15,12 @@ function Products() {
   const { products, loading } = useSelector((state) => state.products);
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [productName]);
+
+  useEffect(() => {
     dispatch(getProduct({ productName, page: currentPage }));
-  }, [dispatch, productName, currentPage]);
+  }, [dispatch, currentPage]);
 
   return (
     <>
@@ -34,16 +37,6 @@ function Products() {
                 ))}
             </div>
 
-            <div className="filter-container">
-              <h3 className="products-filter">Filters</h3>
-              <div className="filter-list">
-                <div className="filter-item">
-                  {<RangeSlider min={100} max={500} />}
-                </div>
-                <div className="filter-item">Size</div>
-                <div className="filter-item">Color</div>
-              </div>
-            </div>
             {/* Pagination */}
             <Pagination
               currentPage={currentPage}

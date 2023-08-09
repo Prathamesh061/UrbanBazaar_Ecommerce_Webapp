@@ -17,6 +17,7 @@ export function getProduct({ productName = "", page = 1 }) {
       });
 
       const url = `http://127.0.0.1:8000/eshop/api/v1/products?name=${productName}&page=${page}`;
+      console.log(url);
       const { data } = await axios.get(url);
 
       dispatch({
