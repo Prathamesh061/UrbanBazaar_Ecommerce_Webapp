@@ -1,5 +1,4 @@
 const { catchAsyncError } = require("../middlewares");
-const Product = require("../models/product.model");
 const ProductModel = require("../models/product.model");
 const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
@@ -17,35 +16,26 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   const resultPerPage = 8;
+  const productsCount = await ProductModel.countDocuments();
 
-  const apiFeature = new ApiFeatures(ProductModel, req.query)
-    .search()
-    .filter()
-    .pagination(resultPerPage)
-    .sort();
+  const apiFeature = new ApiFeatures(ProductModel.find(), req.query);
+  apiFeature.search().filter().sort();
 
   let products = await apiFeature.query;
 
-  let tempProducts = await ProductModel.aggregate([
-    {
-      $match: {
-        $or: [{ name: { $regex: req.query.name, $options: "i" } }],
-      },
-    },
-  ]);
-  productsCount = tempProducts.length;
-
   let filteredProductsCount = products.length;
 
-  setTimeout(() => {
-    res.status(200).json({
-      success: true,
-      products,
-      productsCount,
-      resultPerPage,
-      filteredProductsCount,
-    });
-  }, 300);
+  apiFeature.pagination(resultPerPage);
+
+  products = await apiFeature.query.clone();
+
+  res.status(200).json({
+    success: true,
+    products,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  });
 });
 
 exports.getDetails = catchAsyncError(async (req, res, next) => {

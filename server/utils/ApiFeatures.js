@@ -32,7 +32,7 @@ class ApiFeatures {
       /\b(gt|gte|lt|lte)\b/g,
       (key) => `$${key}`
     );
-
+    console.log(queryParams);
     this.query = this.query.find(JSON.parse(queryParams));
 
     return this;
@@ -64,6 +64,12 @@ class ApiFeatures {
       case "popularity":
         this.query = this.query.sort({
           rating: -1,
+        });
+        break;
+
+      default:
+        this.query = this.query.sort({
+          price: -1,
         });
         break;
     }

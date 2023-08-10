@@ -118,7 +118,7 @@
         background: transparent;
         border: 0;
         cursor: pointer;
-        z-index: 1000;
+        z-index: 500;
     }
 
     .hamburger {

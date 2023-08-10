@@ -13,6 +13,7 @@
     box-shadow: var(--bs);
     margin-bottom: 1em;
     margin-top: 1em;
+    justify-self: end;
 }
 
 .product-img-carousel__item {
@@ -31,11 +32,16 @@
 }
 
 .product-name {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: .3em;
     font-family: var(--ff-primary);
     color: var(--clr-sunset-orange);
     padding: 1em;
     grid-column: 1/-1;
     text-align: center;
+    width: max-content;
+    background: var(--clr-dark);
 }
 
 .product-id {

@@ -7,6 +7,7 @@ import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
+import MetaData from "../../Utility/MetaData";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -32,7 +33,13 @@ const ProductDetails = () => {
         <Link to={`..`} relative="path" className="back-btn">
           &larr; <span>Back to all products</span>
         </Link>
-        {product && <h3 className="product-name">{product.name}</h3>}
+        {product && (
+          <>
+            {" "}
+            <h3 className="product-name">{product.name}</h3>
+            <MetaData title={`${product.name} - UrbanBazaar`} />{" "}
+          </>
+        )}
 
         <Carousel className="product-img-carousel">
           {product &&

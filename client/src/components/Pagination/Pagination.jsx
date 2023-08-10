@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
 import "./pagination.css";
 
-const Pagination = ({ currentPage, setCurrentPage }) => {
-  const { productsCount, resultPerPage } = useSelector(
-    (state) => state.products
-  );
-
+const Pagination = ({
+  currentPage,
+  setCurrentPage,
+  productsCount,
+  resultPerPage,
+}) => {
   const pageCount = Math.ceil(productsCount / resultPerPage) || 0;
   const prevButtonDisabled = currentPage === 1;
   const nextButtonDisabled = pageCount === 0 || currentPage === pageCount;
