@@ -4,6 +4,7 @@ const http = require("http");
 
 const port = process.env.PORT || "3000";
 app.set("port", port);
+app.set("server", "127.0.0.1");
 
 /**
  * Create HTTP server.

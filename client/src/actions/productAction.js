@@ -22,10 +22,10 @@ export function getProduct({
         type: ALL_PRODUCT_REQUEST,
       });
 
-      let url = `http://127.0.0.1:8000/eshop/api/v1/products?name=${productName}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`;
+      let url = `/eshop/api/v1/products?name=${productName}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`;
 
       if (category) {
-        url = `http://127.0.0.1:8000/eshop/api/v1/products?name=${productName}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`;
+        url = `/eshop/api/v1/products?name=${productName}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`;
       }
       const { data } = await axios.get(url);
 
@@ -50,9 +50,7 @@ export function getProductDetails(id) {
         type: PRODUCT_DETAILS_REQUEST,
       });
 
-      const { data } = await axios.get(
-        `http://127.0.0.1:8000/eshop/api/v1/product/${id}`
-      );
+      const { data } = await axios.get(`/eshop/api/v1/product/${id}`);
 
       dispatch({
         type: PRODUCT_DETAILS_SUCCESS,

@@ -126,4 +126,5 @@ h3 {
 
 .btn:hover {
     transform: scale(1.07);
+    opacity: .9;
 }

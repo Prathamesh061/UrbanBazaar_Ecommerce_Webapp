@@ -2,11 +2,14 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
 import { HiSearch } from "react-icons//hi";
 import Search from "../../Search/Search";
+import { useSelector } from "react-redux";
+import UserOptions from "../Header/UserOptions/UserOptions";
 
 function Header() {
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+
   function handleNavClick() {
     document.body.classList.remove("nav-open");
   }
@@ -97,14 +100,20 @@ function Header() {
                   <FaShoppingCart />
                 </NavLink>
               </li>
-              <li className="nav__item">
-                <NavLink
-                  to="/profile"
-                  style={({ isActive }) => (isActive ? activeStyles : null)}
-                  className="nav__link"
-                >
-                  <CgProfile />
-                </NavLink>
+              <li
+                className={`nav__item ${isAuthenticated ? "user-options" : ""}`}
+              >
+                {isAuthenticated ? (
+                  <UserOptions user={user} />
+                ) : (
+                  <NavLink
+                    to="/login"
+                    style={({ isActive }) => (isActive ? activeStyles : null)}
+                    className="nav__link login-btn-link"
+                  >
+                    <button className="login-btn">Login</button>
+                  </NavLink>
+                )}
               </li>
             </ul>
           </nav>

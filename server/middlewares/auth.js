@@ -10,7 +10,7 @@ exports.authJWT = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Please, Login in", 401));
   }
 
-  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+  const decodedData = await jwt.verify(token, process.env.JWT_SECRET);
 
   req.user = await UserModel.findById(decodedData.id);
 

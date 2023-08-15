@@ -54,6 +54,7 @@ function Products() {
     setCategory("");
     setRatings(0);
     navigate(`/products`);
+    setFilterBoxOpen(false);
   }
 
   function handleFilterState() {
@@ -111,6 +112,7 @@ function Products() {
                   valueLabelDisplay="on"
                   aria-label="range-slider"
                   min={0}
+                  step={500}
                   max={50000}
                 />
               </div>

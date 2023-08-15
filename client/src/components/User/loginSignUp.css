@@ -1,0 +1,218 @@
+.login-signup-container {
+    max-width: 1200px;
+    height: 50vh;
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+    padding: 1em;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    min-height: 500px;
+}
+
+.login-signup-box {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-body);
+    color: var(--clr-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-shadow: var(--bs);
+    overflow: hidden;
+}
+
+@media (min-width: 600px) {
+    .login-signup-box {
+        width: 50%;
+    }
+}
+
+.login-signup-toggle {
+    display: flex;
+    height: max-content;
+}
+
+.login-signup-box__login,
+.login-signup-box__register {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-h3);
+    cursor: pointer;
+    display: grid;
+    padding: .5em;
+    place-items: center;
+    width: 100%;
+    margin: 0;
+    margin-bottom: -.5em;
+}
+
+.login-signup-box__switcher {
+    background: var(--clr-sunset-orange);
+    width: 50%;
+    height: 3px;
+    border: none;
+    transition: all 500ms;
+    margin: 0;
+}
+
+.login-form,
+.signup-form {
+    width: 70%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 1em;
+    padding-top: 0;
+    margin-top: 0;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+
+/* .signup-form {
+    transform: translateY(-100%) translateX(-100vmax);
+} */
+
+.forget-password {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-reg);
+    color: var(--clr-dark);
+    font-size: .8em;
+}
+
+.login-email,
+.login-password,
+.signup-email,
+.signup-password,
+.signup-name {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.login-email>input,
+.login-password>input,
+.signup-email>input,
+.signup-password>input,
+.signup-name>input {
+    padding: .5em 1.5em;
+    padding-left: 2.5rem;
+    width: 100%;
+    border: 1px solid black;
+    outline: none;
+    font-family: var(--ff-secondary);
+}
+
+.login-email>svg,
+.login-password>svg,
+.signup-email>svg,
+.signup-password>svg,
+.signup-name>svg {
+    position: absolute;
+    padding: .4em;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    opacity: .7;
+}
+
+.forget-password {
+    align-self: flex-end;
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-body);
+}
+
+.forget-password:hover {
+    color: var(--clr-sunset-orange);
+}
+
+.shift-to-neutral {
+    transform: translateX(0);
+}
+
+
+.shift-to-right {
+    transform: translateX(100%);
+}
+
+.login-form-show {
+    display: flex;
+}
+
+.register-form-show {
+    display: flex;
+}
+
+.register-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-image>img {
+    width: 3vmax;
+    border-radius: 100%;
+    margin: .5em;
+    outline: 1px solid var(--clr-sunset-orange);
+    outline-offset: 2px;
+}
+
+.register-image>input {
+    display: flex;
+    padding: 0;
+}
+
+.register-image>input::file-selector-button {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-bold);
+    color: var(--clr-dark);
+    cursor: pointer;
+    width: 100%;
+    z-index: 2;
+    height: 3em;
+    transition: all 500ms;
+}
+
+.register-image>input::file-selector-button:hover {
+    background: var(--clr-sunset-orange);
+
+}
+
+@media (max-width: 600px) {
+
+    .login-email>svg,
+    .login-password>svg,
+    .signup-email>svg,
+    .signup-password>svg {
+        font-size: var(--fs-h3);
+    }
+
+    .login-form,
+    .signup-form {
+        width: 100%;
+    }
+
+    .login-signup-box {
+        box-shadow: none;
+    }
+
+    .register-image>img {
+        width: 5vmax
+    }
+}
+
+.error {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    color: #cc0000;
+    text-align: center;
+    margin-inline: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}

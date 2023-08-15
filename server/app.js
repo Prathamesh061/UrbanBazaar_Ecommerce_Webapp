@@ -9,6 +9,8 @@ require("./utils/database")(); // Database initialization
 const { catchError } = require("./middlewares");
 const ErrorHandler = require("./utils/errorHandler");
 const cors = require("cors");
+const cloudinary = require("cloudinary");
+const fileUpload = require("express-fileupload");
 const app = express();
 
 /**
@@ -17,7 +19,11 @@ const app = express();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 /**
  * Middlewares
  */
@@ -25,9 +31,10 @@ app.set("view engine", "hbs");
 app.use(logger("dev"));
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(fileUpload());
 
 /**
  * Use Routers

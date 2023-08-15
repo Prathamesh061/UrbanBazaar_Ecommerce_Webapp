@@ -32,7 +32,6 @@ class ApiFeatures {
       /\b(gt|gte|lt|lte)\b/g,
       (key) => `$${key}`
     );
-    console.log(queryParams);
     this.query = this.query.find(JSON.parse(queryParams));
 
     return this;
