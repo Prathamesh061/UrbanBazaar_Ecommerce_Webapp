@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Loader from "../Layout/Loader/Loader";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { login, register, clearErrors } from "../../actions/userAction";
 import "./loginSignUp.css";
 
 function LoginSignUp() {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -20,6 +21,7 @@ function LoginSignUp() {
   const [avatarPreview, setAvatarPreview] = useState("/profile.png");
   const [showLogin, setShowLogin] = useState(true);
   const [showRegister, setShowRegister] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const loginTab = useRef(null);
   const registerTab = useRef(null);
@@ -77,7 +79,15 @@ function LoginSignUp() {
   }
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/account");
+    const url = new URLSearchParams(location.search);
+    setMessage(url.get("message"));
+
+    if (
+      isAuthenticated &&
+      !(url.get("login") && url.get("login") == "active")
+    ) {
+      navigate(url.get("redirectTo") || "/account");
+    }
   }, [error, dispatch, isAuthenticated]);
 
   return (
@@ -115,7 +125,8 @@ function LoginSignUp() {
               ref={loginTab}
               onSubmit={loginSubmit}
             >
-              {error && <p className="error">{error}</p>}
+              {message && <p className="error">{message}</p>}
+              {!message && error && <p className="error">{error}</p>}
               <div className="login-email">
                 <FontAwesomeIcon icon={faEnvelope} className="icon-clr" />
                 <input

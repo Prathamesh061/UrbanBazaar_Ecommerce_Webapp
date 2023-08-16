@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import MetaData from "../../Utility/MetaData";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import Loader from "../../Layout/Loader/Loader";
 
-function Profile() {
+function About() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -17,14 +15,7 @@ function Profile() {
       );
     }
   });
-
-  return loading ? (
-    <Loader />
-  ) : (
-    <>
-      <MetaData title={`${user?.name} | UrbanBazaar`} />
-    </>
-  );
+  return <div>About</div>;
 }
 
-export default Profile;
+export default About;

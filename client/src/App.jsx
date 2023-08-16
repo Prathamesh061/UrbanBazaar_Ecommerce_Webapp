@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import store from "./store";
 import { loadUser } from "./actions/userAction";
 import Profile from "./components/User/Profile/Profile";
+import About from "./components/About/About";
+import DashBoard from "./components/DashBoard/DashBoard";
 
 function App() {
   useEffect(() => {
@@ -28,11 +30,11 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/search/:productName" element={<Products />} />
           <Route path="/contact" element={<h1>contact</h1>} />
-          <Route path="/about" element={<h1>about</h1>} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginSignUp />} />
           <Route path="/account" element={<Profile />} />
           <Route path="/cart" element={<h1>Cart</h1>} />
-          <Route path="/dashboard" element={<h1>dashboard</h1>} />
+          <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/orders" element={<h1>orders</h1>} />
         </Route>
       </Routes>

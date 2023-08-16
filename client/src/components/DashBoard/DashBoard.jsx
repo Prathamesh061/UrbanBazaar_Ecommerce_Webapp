@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import MetaData from "../../Utility/MetaData";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import Loader from "../../Layout/Loader/Loader";
 
-function Profile() {
+function DashBoard() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -15,16 +13,14 @@ function Profile() {
       navigate(
         `/login?message=You must log in first.&redirectTo=${location.pathname}`
       );
+    } else if (user.role && user.role !== "admin") {
+      navigate(
+        `/login?message=Only Admin View.&login=active&redirectTo=${location.pathname}`
+      );
     }
-  });
+  }, [user, isAuthenticated, loading]);
 
-  return loading ? (
-    <Loader />
-  ) : (
-    <>
-      <MetaData title={`${user?.name} | UrbanBazaar`} />
-    </>
-  );
+  return loading ? <div>DashBoard</div> : <h1>{user.role}</h1>;
 }
 
-export default Profile;
+export default DashBoard;
