@@ -13,6 +13,7 @@ import { loadUser } from "./actions/userAction";
 import Profile from "./components/User/Profile/Profile";
 import About from "./components/About/About";
 import DashBoard from "./components/DashBoard/DashBoard";
+import UpdateProfile from "./components/User/UpdateProfile/UpdateProfile";
 
 function App() {
   useEffect(() => {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/cart" element={<h1>Cart</h1>} />
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/orders" element={<h1>orders</h1>} />
+          <Route path="/me/update" element={<UpdateProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>

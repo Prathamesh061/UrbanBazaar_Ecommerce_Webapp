@@ -3,3 +3,7 @@
     height: 90%;
     border-radius: 50%;
 }
+
+.speed-dial {
+    z-index: 700;
+}

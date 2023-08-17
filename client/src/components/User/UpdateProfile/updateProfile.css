@@ -1,0 +1,145 @@
+.update-profile-container {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+    padding: 1em;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    height: 100vh;
+}
+
+.update-profile-container__header {
+    text-align: center;
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-h2);
+    padding: .3em;
+    border-bottom: 2px solid var(--clr-sunset-orange);
+}
+
+.update-box {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-h3);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: .5em;
+    height: 500px;
+    box-shadow: var(--bs);
+}
+
+.update-form {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 1em;
+    padding-top: 0;
+    margin-top: 0;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.update-email,
+.update-password,
+.update-name {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.update-email>input,
+.update-password>input,
+.update-name>input {
+    padding: .5em 1.5em;
+    padding-left: 2.5rem;
+    width: 100%;
+    border: 1px solid black;
+    outline: none;
+    font-family: var(--ff-secondary);
+}
+
+.update-email>svg,
+.update-password>svg,
+.update-name>svg {
+    position: absolute;
+    padding: .4em;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    opacity: .7;
+}
+
+.update-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.update-image>img {
+    width: 3vmax;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 999;
+    left: 5px;
+}
+
+.update-image>input {
+    display: flex;
+    padding: 0;
+}
+
+.update-image>input::file-selector-button {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-bold);
+    color: var(--clr-dark);
+    cursor: pointer;
+    width: 100%;
+    z-index: 2;
+    height: 3em;
+    transition: all 500ms;
+}
+
+.update-image>input::file-selector-button:hover {
+    background: var(--clr-sunset-orange);
+
+}
+
+@media (max-width: 600px) {
+    .update-email>svg {
+        font-size: var(--fs-h3);
+    }
+
+    .update-form {
+        width: 100%;
+    }
+
+    .update-box {
+        box-shadow: none;
+    }
+
+    .update-image>img {
+        width: 4vmax
+    }
+
+    .update-profile-container {
+        height: 50vh;
+    }
+}
+
+.error {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    color: #cc0000;
+    text-align: center;
+    margin-inline: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}

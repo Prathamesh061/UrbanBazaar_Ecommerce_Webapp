@@ -15,7 +15,7 @@ function DashBoard() {
       );
     } else if (user.role && user.role !== "admin") {
       navigate(
-        `/login?message=Only Admin View.&login=active&redirectTo=${location.pathname}`
+        `/login?message=Dashboard: Only Admin View.&login=active&redirectTo=${location.pathname}`
       );
     }
   }, [user, isAuthenticated, loading]);

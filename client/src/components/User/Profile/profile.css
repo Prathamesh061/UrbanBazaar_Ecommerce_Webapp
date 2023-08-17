@@ -1,0 +1,78 @@
+.profile-container {
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 1em;
+    height: 80vh;
+    display: flex;
+    position: relative;
+}
+
+.profile-picture-container,
+.profile-info-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2em;
+}
+
+.profile-info__subheader {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+}
+
+.profile-info-data {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-reg);
+}
+
+.profile-info-container {
+    align-items: flex-start;
+}
+
+.profile-picture-container__header {
+    text-align: center;
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-h2);
+}
+
+.profile-picture-container__picture {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    outline: 5px solid var(--clr-sunset-orange);
+    outline-offset: 3px;
+}
+
+.update-password-btn,
+.orders-btn {
+    display: block;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+.message {
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .profile-info-container {
+        align-items: center;
+    }
+
+    .edit-profile-btn {
+        margin-top: 2em;
+    }
+
+    * {
+        text-align: center;
+    }
+}

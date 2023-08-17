@@ -11,6 +11,7 @@ import {
   faDashboard,
 } from "@fortawesome/free-solid-svg-icons";
 import "./userOptions.css";
+import { Backdrop } from "@material-ui/core";
 
 function UserOptions({ user }) {
   const [open, setOpen] = useState(false);
@@ -50,6 +51,7 @@ function UserOptions({ user }) {
   }
   return (
     <>
+      <Backdrop open={open} style={{ zIndex: "-1" }} />
       <SpeedDial
         className="speed-dial"
         ariaLabel="SpeedDial tooltip example"

@@ -235,4 +235,5 @@
     padding: 0;
     position: relative;
     top: -.5em;
+    z-index: 700;
 }

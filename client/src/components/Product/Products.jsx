@@ -110,7 +110,6 @@ function Products() {
                   value={price}
                   onChange={priceHandler}
                   valueLabelDisplay="on"
-                  aria-label="range-slider"
                   min={0}
                   step={500}
                   max={50000}
@@ -139,7 +138,6 @@ function Products() {
                   marks
                   valueLabelDisplay="on"
                   step={0.5}
-                  aria-label="continuous-slider"
                   min={0}
                   max={5}
                 />
