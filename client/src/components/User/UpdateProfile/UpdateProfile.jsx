@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../../Layout/Loader/Loader";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,6 +75,9 @@ function UpdateProfile() {
       ) : (
         <>
           <MetaData title="Update Profile" />
+          <Link to={`/account`} relative="path" className="profile-back-btn">
+            &larr; <span>Back to profile</span>
+          </Link>
           <div className="update-profile-container">
             <div className="update-box">
               <h2 className="update-profile-container__header">

@@ -1,12 +1,12 @@
 .update-profile-container {
     max-width: 1200px;
     margin-inline: auto;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
     padding: 1em;
     margin-top: 1rem;
     margin-bottom: 2rem;
-    height: 100vh;
+    height: max-content;
 }
 
 .update-profile-container__header {
@@ -82,7 +82,7 @@
 }
 
 .update-image>img {
-    width: 3vmax;
+    width: 1.5em;
     border-radius: 100%;
     position: absolute;
     z-index: 999;
@@ -124,7 +124,7 @@
     }
 
     .update-image>img {
-        width: 4vmax
+        width: 2em
     }
 
     .update-profile-container {
@@ -142,4 +142,18 @@
     margin-top: 0;
     margin-bottom: 0;
     padding: 0;
+}
+
+.profile-back-btn {
+    display: block;
+    color: var(--clr-dark);
+    padding: 1em;
+    padding-left: 0;
+    font-family: var(--ff-primary);
+    font-style: var(--fs-body);
+    max-width: 1200px;
+    margin-inline: auto;
+    width: 100%;
+    padding-left: 2em;
+    text-align: left;
 }
