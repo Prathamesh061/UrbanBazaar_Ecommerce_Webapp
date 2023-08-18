@@ -88,7 +88,7 @@ function LoginSignUp() {
     ) {
       navigate(url.get("redirectTo") || "/account");
     }
-  }, [error, dispatch, isAuthenticated]);
+  }, [error, dispatch, isAuthenticated, message]);
 
   return (
     <>
@@ -125,7 +125,7 @@ function LoginSignUp() {
               ref={loginTab}
               onSubmit={loginSubmit}
             >
-              {message && <p className="error">{message}</p>}
+              {message && <p className="message">{message}</p>}
               {!message && error && <p className="error">{error}</p>}
               <div className="login-email">
                 <FontAwesomeIcon icon={faEnvelope} className="icon-clr" />
@@ -148,7 +148,7 @@ function LoginSignUp() {
                 />
               </div>
               <Link to="/password/forget" className="forget-password">
-                Password Forget?
+                Forgot password?
               </Link>
               <input type="submit" className="login-btn btn" value="Login" />
             </form>

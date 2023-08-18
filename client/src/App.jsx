@@ -14,6 +14,9 @@ import Profile from "./components/User/Profile/Profile";
 import About from "./components/About/About";
 import DashBoard from "./components/DashBoard/DashBoard";
 import UpdateProfile from "./components/User/UpdateProfile/UpdateProfile";
+import UpdatePassword from "./components/User/UpdatePassword/UpdatePassword";
+import ForgotPassword from "./components/User/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/User/ResetPassword/ResetPassword";
 
 function App() {
   useEffect(() => {
@@ -38,6 +41,9 @@ function App() {
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/orders" element={<h1>orders</h1>} />
           <Route path="/me/update" element={<UpdateProfile />} />
+          <Route path="/password/update" element={<UpdatePassword />} />
+          <Route path="/password/forget" element={<ForgotPassword />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

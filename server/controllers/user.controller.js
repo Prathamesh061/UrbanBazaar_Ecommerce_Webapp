@@ -70,7 +70,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   });
 
   if (!user) {
-    next(new ErrorHandler("User not Found", 404));
+    next(new ErrorHandler("Invalid user credentials: Email", 404));
   }
 
   // Get reset password token
@@ -78,9 +78,10 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
   await user.save();
 
-  const resetPasswordURL = `${req.protocol}://${req.get(
-    "host"
-  )}/eshop/api/v1/password/reset/${resetToken}`;
+  // req.protocol}://${req.get(
+  //   "host"
+  // )
+  const resetPasswordURL = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
   try {
     await sendEmail({

@@ -73,10 +73,6 @@
 }
 
 
-/* .signup-form {
-    transform: translateY(-100%) translateX(-100vmax);
-} */
-
 .forget-password {
     font-family: var(--ff-primary);
     font-weight: var(--fw-reg);
@@ -200,6 +196,7 @@
         box-shadow: none;
     }
 
+
     .register-image>img {
         width: 5vmax
     }
@@ -210,6 +207,18 @@
     font-weight: var(--fw-bold);
     font-size: var(--fs-body);
     color: #cc0000;
+    text-align: center;
+    margin-inline: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.message {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    color: green;
     text-align: center;
     margin-inline: auto;
     margin-top: 0;
