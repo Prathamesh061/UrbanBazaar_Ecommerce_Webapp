@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
-import "./productDetails.css";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../../../actions/productAction";
+import { addItemsToCart } from "../../../actions/cartAction";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
 import MetaData from "../../Utility/MetaData";
+import "./productDetails.css";
 
 const ProductDetails = () => {
+  const [quantity, setQuantity] = useState(1);
   const params = useParams();
   const dispatch = useDispatch();
 
@@ -23,6 +25,20 @@ const ProductDetails = () => {
     color: "#ffa506",
   };
 
+  function increaseQuantity() {
+    if (product.stock <= quantity) return;
+    setQuantity(quantity + 1);
+  }
+
+  function decreaseQuantity() {
+    if (quantity <= 1) return;
+    setQuantity(quantity - 1);
+  }
+
+  function handleAddToCart() {
+    dispatch(addItemsToCart(params.id, quantity));
+  }
+
   useEffect(() => {
     dispatch(getProductDetails(params.id));
   }, []);
@@ -30,7 +46,7 @@ const ProductDetails = () => {
   return (
     <>
       <div className="product-details-container">
-        <Link to={`..`} relative="path" className="back-btn">
+        <Link to={`..`} relative="path" className="profile-back-btn">
           &larr; <span>Back to all products</span>
         </Link>
         {product && (
@@ -73,17 +89,32 @@ const ProductDetails = () => {
                 </h3>
 
                 <div className="stock-container">
-                  <span className="increase-stock-btn">
-                    <FontAwesomeIcon icon={faAdd} className="icon-clr" />
-                  </span>
-
-                  <input type="number" className="stock-input" min={1} />
-
-                  <span className="decrease-stock-btn">
+                  <span
+                    className="increase-stock-btn"
+                    onClick={decreaseQuantity}
+                  >
                     <FontAwesomeIcon icon={faMinus} className="icon-clr" />
                   </span>
+
+                  <input
+                    type="number"
+                    className="stock-input"
+                    min={1}
+                    value={quantity}
+                    readOnly
+                  />
+
+                  <span
+                    className="decrease-stock-btn"
+                    onClick={increaseQuantity}
+                  >
+                    <FontAwesomeIcon icon={faAdd} className="icon-clr" />
+                  </span>
                 </div>
-                <button className="add-to-cart btn">Add To Cart</button>
+                <button className="add-to-cart btn" onClick={handleAddToCart}>
+                  {" "}
+                  Add To Cart
+                </button>
 
                 <div>
                   Status:{" "}
