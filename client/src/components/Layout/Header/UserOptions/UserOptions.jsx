@@ -73,6 +73,7 @@ function UserOptions({ user }) {
             icon={<FontAwesomeIcon icon={item.icon} className="icon-clr" />}
             tooltipTitle={item.name}
             onClick={item.func}
+            tooltipOpen={window.innerWidth < 600}
           />
         ))}
       </SpeedDial>

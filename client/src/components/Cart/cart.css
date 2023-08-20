@@ -1,0 +1,104 @@
+.cart {
+    max-width: 1200px;
+    margin: 1rem;
+    margin-inline: auto;
+    width: 100%;
+    overflow: auto;
+}
+
+.cart-header {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    background: var(--clr-sunset-orange);
+    color: var(--clr-dark);
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    font-family: var(--ff-secondary);
+    padding-inline: 1em;
+}
+
+.cart-header__item {
+    text-align: center;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-bold);
+    padding-inline: .5em;
+}
+
+.cart-header__item:nth-child(1) {
+    text-align: start;
+}
+
+.cart-header__item:nth-child(3) {
+    text-align: end;
+}
+
+.cart-container {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+}
+
+.cart-input {
+    width: 3rem;
+    text-align: center;
+    outline: none;
+    border: none;
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h3);
+}
+
+.cart-container__subtotal {
+    text-align: center;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-bold);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1.5em;
+}
+
+.stock-container {
+    margin-inline: .5em;
+}
+
+.cart-gross-price {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    font-family: var(--ff-secondary);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+}
+
+.cart-gross-price__box {
+    border-top: 3px solid var(--clr-sunset-orange);
+    padding-inline: .5em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.checkout-btn>button {
+    border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+    .cart-gross-price {
+        grid-template-columns: 1fr;
+    }
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
