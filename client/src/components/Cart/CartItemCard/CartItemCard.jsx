@@ -7,7 +7,9 @@ function CartItemCard({ item, delteCartItems }) {
     <div className="cart-item-card">
       <img src={item.image} alt="ssa" className="cart-item-card__img" />
       <div className="cart-item-card__info">
-        <Link to={`/products/${item.product}`}>{item.name}</Link>
+        <Link to={`/products/${item.product}?redirectTo=/cart`}>
+          {item.name}
+        </Link>
         <span>
           {`Price: ${new Intl.NumberFormat("en-HI", {
             style: "currency",

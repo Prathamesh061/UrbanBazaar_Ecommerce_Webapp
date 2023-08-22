@@ -1,4 +1,4 @@
-.update-profile-container {
+.shipping-container {
     max-width: 1200px;
     margin-inline: auto;
     display: flex;
@@ -7,10 +7,9 @@
     margin-top: 1rem;
     margin-bottom: 2rem;
     height: max-content;
-    min-height: 80vh;
 }
 
-.update-profile-container__header {
+.shipping-header {
     text-align: center;
     font-family: var(--ff-primary);
     font-weight: var(--fw-reg);
@@ -19,7 +18,7 @@
     border-bottom: 2px solid var(--clr-sunset-orange);
 }
 
-.update-box {
+.shipping-box {
     font-family: var(--ff-secondary);
     font-weight: var(--fw-reg);
     font-size: var(--fs-h3);
@@ -29,11 +28,11 @@
     justify-content: space-evenly;
     align-items: center;
     padding: .5em;
-    height: 100%;
+    height: 500px;
     box-shadow: var(--bs);
 }
 
-.update-form {
+.shipping-form {
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -46,17 +45,21 @@
     justify-content: space-evenly;
 }
 
-.update-email,
-.update-password,
-.update-name {
+.address-name,
+.address-city,
+.address-pincode,
+.address-phoneno,
+.address-country,
+.address-state {
     display: flex;
     width: 100%;
     align-items: center;
 }
 
-.update-email>input,
-.update-password>input,
-.update-name>input {
+.address-name>input,
+.address-city>input,
+.address-pincode>input,
+.address-phoneno>input {
     padding: .5em 1.5em;
     padding-left: 2.5rem;
     width: 100%;
@@ -65,9 +68,22 @@
     font-family: var(--ff-secondary);
 }
 
-.update-email>svg,
-.update-password>svg,
-.update-name>svg {
+.address-country>select,
+.address-state>select {
+    padding: .5em 1.5em;
+    padding-left: 2.5rem;
+    width: 100%;
+    border: 1px solid black;
+    outline: none;
+    font-family: var(--ff-secondary);
+}
+
+.address-name>svg,
+.address-city>svg,
+.address-pincode>svg,
+.address-phoneno>svg,
+.address-country>svg,
+.address-state>svg {
     position: absolute;
     padding: .4em;
     font-weight: var(--fw-bold);
@@ -75,61 +91,14 @@
     opacity: .7;
 }
 
-.update-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.update-image>img {
-    width: 1.5em;
-    border-radius: 100%;
-    position: absolute;
-    z-index: 999;
-    left: 5px;
-}
-
-.update-image>input {
-    display: flex;
-    padding: 0;
-}
-
-.update-image>input::file-selector-button {
-    font-family: var(--ff-primary);
-    font-weight: var(--fw-bold);
-    color: var(--clr-dark);
-    cursor: pointer;
-    width: 100%;
-    z-index: 2;
-    height: 3em;
-    transition: all 500ms;
-}
-
-.update-image>input::file-selector-button:hover {
-    background: var(--clr-sunset-orange);
-
-}
 
 @media (max-width: 600px) {
-    .update-email>svg {
-        font-size: var(--fs-h3);
-    }
-
-    .update-form {
+    .shipping-form {
         width: 100%;
     }
 
-    .update-box {
+    .shipping-box {
         box-shadow: none;
-    }
-
-    .update-image>img {
-        width: 2em
-    }
-
-    .update-profile-container {
-        height: 50vh;
     }
 }
 

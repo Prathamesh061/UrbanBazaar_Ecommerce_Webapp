@@ -81,12 +81,11 @@ function LoginSignUp() {
   useEffect(() => {
     const url = new URLSearchParams(location.search);
     setMessage(url.get("message"));
-
     if (
       isAuthenticated &&
       !(url.get("login") && url.get("login") == "active")
     ) {
-      navigate(url.get("redirectTo") || "/account");
+      navigate(`${url.get("redirectTo") || ""}` || "/account");
     }
   }, [error, dispatch, isAuthenticated, message]);
 

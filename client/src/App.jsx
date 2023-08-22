@@ -18,6 +18,8 @@ import UpdatePassword from "./components/User/UpdatePassword/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword/ResetPassword";
 import Cart from "./components/Cart/Cart";
+import Shipping from "./components/Cart/Shipping/Shipping";
+import ConfirmOrder from "./components/Cart/ConfirmOrder/ConfirmOrder";
 
 function App() {
   useEffect(() => {
@@ -47,6 +49,8 @@ function App() {
           <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="/cart" element={<Cart />} />
         </Route>
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/order/confirm" element={<ConfirmOrder />} />
       </Routes>
     </BrowserRouter>
   );

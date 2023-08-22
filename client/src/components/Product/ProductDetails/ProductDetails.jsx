@@ -3,7 +3,14 @@ import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../../../actions/productAction";
 import { addItemsToCart } from "../../../actions/cartAction";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +21,9 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const params = useParams();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const url = new URLSearchParams(location.search);
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
@@ -37,6 +46,8 @@ const ProductDetails = () => {
 
   function handleAddToCart() {
     dispatch(addItemsToCart(params.id, quantity));
+
+    navigate("/cart");
   }
 
   useEffect(() => {
@@ -46,8 +57,12 @@ const ProductDetails = () => {
   return (
     <>
       <div className="product-details-container">
-        <Link to={`..`} relative="path" className="profile-back-btn">
-          &larr; <span>Back to all products</span>
+        <Link
+          to={url.get("redirectTo") || `..`}
+          relative="path"
+          className="profile-back-btn"
+        >
+          &larr; <span>Back</span>
         </Link>
         {product && (
           <>

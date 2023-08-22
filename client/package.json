@@ -16,6 +16,7 @@
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "axios": "^1.4.0",
+    "country-state-city": "^3.2.0",
     "font-awesome": "^4.7.0",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",

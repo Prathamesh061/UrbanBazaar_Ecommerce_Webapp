@@ -9,6 +9,7 @@
 
 .search-box__input {
     width: 80%;
+    border: 3px solid var(--clr-dark);
     font-size: var(--fs-body);
     font-family: var(--ff-primary);
 }

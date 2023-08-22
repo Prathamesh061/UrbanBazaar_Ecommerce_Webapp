@@ -1,0 +1,18 @@
+.checkout-steps {
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.MuiStepConnector-line {
+    display: none;
+}
+
+.MuiStepConnector-root {
+    height: 1px;
+    background-color: var(--clr-sunset-orange);
+}
+
+.MuiStep-acitve,
+.MuiStep-completed {
+    color: var(--clr-sunset-orange);
+}

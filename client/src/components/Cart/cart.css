@@ -3,7 +3,13 @@
     margin: 1rem;
     margin-inline: auto;
     width: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    min-width: none;
+}
+
+.cart>div {
+    min-width: 500px;
+    overflow-x: auto;
 }
 
 .cart-header {
@@ -80,13 +86,17 @@
     justify-content: space-between;
 }
 
-.checkout-btn {
+.checkout-btn-box {
     display: flex;
     justify-content: flex-end;
 }
 
-.checkout-btn>button {
+.checkout-btn {
     border-radius: 15px;
+}
+
+.checkout-btn:hover {
+    transform: none;
 }
 
 @media (max-width: 600px) {
