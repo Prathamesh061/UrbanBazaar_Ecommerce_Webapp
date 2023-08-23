@@ -45,6 +45,7 @@ app.use("/users", usersRouter);
 require("./routes/product.route")(app);
 require("./routes/user.route")(app);
 require("./routes/order.route")(app);
+require("./routes/payment.route")(app);
 
 /**
  *  Page not found

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { saveShippingInfo } from "../../../actions/cartAction";
 import MetaData from "../../Utility/MetaData";
 import CheckoutSteps from "../CheckoutSteps/CheckoutSteps";
 import "./confirmOrder.css";
 
 function ConfirmOrder() {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
+  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const location = useLocation();
   const navigate = useNavigate();
   const subTotal = cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
@@ -31,6 +31,14 @@ function ConfirmOrder() {
 
     navigate("/process/payment");
   }
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate(
+        `/login?message=You must log in first.&redirectTo=${location.pathname}`
+      );
+    }
+  });
   return (
     <>
       <MetaData title={"Confirm Order"} />
