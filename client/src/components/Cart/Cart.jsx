@@ -54,7 +54,9 @@ function Cart() {
               <div className="stock-container">
                 <span
                   className="increase-stock-btn"
-                  onClick={() => decreaseQuantity(item.product, item.quantity)}
+                  onClick={() =>
+                    decreaseQuantity(item.productId, item.quantity)
+                  }
                 >
                   <FontAwesomeIcon icon={faMinus} className="icon-clr" />
                 </span>
@@ -70,7 +72,7 @@ function Cart() {
                 <span
                   className="decrease-stock-btn"
                   onClick={() =>
-                    increaseQunatity(item.product, item.quantity, item.stock)
+                    increaseQunatity(item.productId, item.quantity, item.stock)
                   }
                 >
                   <FontAwesomeIcon icon={faAdd} className="icon-clr" />

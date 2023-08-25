@@ -7,7 +7,7 @@ function CartItemCard({ item, delteCartItems }) {
     <div className="cart-item-card">
       <img src={item.image} alt="ssa" className="cart-item-card__img" />
       <div className="cart-item-card__info">
-        <Link to={`/products/${item.product}?redirectTo=/cart`}>
+        <Link to={`/products/${item.productId}?redirectTo=/cart`}>
           {item.name}
         </Link>
         <span>
@@ -16,7 +16,7 @@ function CartItemCard({ item, delteCartItems }) {
             currency: "INR",
           }).format(item.price)}`}
         </span>
-        <p onClick={() => delteCartItems(item.product)}>Remove</p>
+        <p onClick={() => delteCartItems(item.productId)}>Remove</p>
       </div>
     </div>
   );

@@ -1,0 +1,18 @@
+.order-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 90%;
+    margin-inline: auto
+}
+
+.order-success-icon {
+    margin-bottom: .5em;
+}
+
+.order-success-msg {
+    margin-bottom: 1.3em;
+    text-align: center;
+}

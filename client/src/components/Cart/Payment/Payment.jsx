@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MetaData from "../../Utility/MetaData";
 import CheckoutSteps from "../CheckoutSteps/CheckoutSteps";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   CardNumberElement,
   CardCvcElement,
@@ -10,14 +11,14 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
   faCreditCard,
   faKey,
 } from "@fortawesome/free-solid-svg-icons";
-import "./payment.css";
+import { createOrder } from "../../../actions/orderAction";
 import axios from "axios";
+import "./payment.css";
 
 function Payment() {
   const navigate = useNavigate();
@@ -27,22 +28,32 @@ function Payment() {
   const elements = useElements();
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+  const { error } = useSelector((state) => state.newOrder);
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const payBtn = useRef(null);
 
-  const paymentData = {
-    amount: Math.round(orderInfo.totalPrice * 100),
+  const order = {
+    shippingInfo,
+    orderItems: cartItems,
+    itemsPrice: orderInfo.subTotal,
+    taxPrice: orderInfo.tax,
+    shippingPrice: orderInfo.shippingCharges,
+    totalPrice: orderInfo.totalPrice,
   };
+  const paymentData = {
+    product: cartItems.map((item) => ({
+      id: item.productId,
+      quantity: item.quantity,
+    })),
+  };
+
   async function handlePaymentSubmit(e) {
     e.preventDefault();
-
     payBtn.current.disabled = true;
-
     try {
       const config = {
         "Content-Type": "application/json",
       };
-
       const { data } = await axios.post(
         "/eshop/api/v1/payment/process",
         paymentData,
@@ -50,7 +61,6 @@ function Payment() {
       );
 
       const client_secret = data.client_secret;
-
       if (!stripe || !elements) return;
 
       const result = await stripe.confirmCardPayment(client_secret, {
@@ -74,9 +84,15 @@ function Payment() {
         payBtn.current.disabled = false;
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          navigate("/sucess");
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+
+          dispatch(createOrder(order));
+          navigate("/success");
         } else {
-          console.log("error");
+          navigate("/error");
         }
       }
     } catch (error) {

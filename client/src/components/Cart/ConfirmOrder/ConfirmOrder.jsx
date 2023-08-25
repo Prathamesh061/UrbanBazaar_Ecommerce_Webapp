@@ -58,7 +58,7 @@ function ConfirmOrder() {
 
               <div className="confirm-shipping-phoneno">
                 <p className="confirm-shipping-info__header">Phone: </p>
-                <span>{shippingInfo.phoneNo}</span>
+                <span>{shippingInfo.phoneNum}</span>
               </div>
 
               <div className="confirm-shipping-address">
@@ -73,11 +73,11 @@ function ConfirmOrder() {
               <div className="confirm-cart-items-container__box">
                 {cartItems &&
                   cartItems.map((item) => (
-                    <div key={item.product}>
+                    <div key={item.productId}>
                       <div className="confirm-cart-items-img-container">
                         <img src={item.image} alt="product" />
                         <Link
-                          to={`/products/${item.product}?redirectTo=/order/confirm`}
+                          to={`/products/${item.productId}?redirectTo=/order/confirm`}
                           className="confirm-cart-items-product-name"
                         >
                           {item.name}
@@ -133,7 +133,8 @@ function ConfirmOrder() {
                 {new Intl.NumberFormat("en-HI", {
                   style: "currency",
                   currency: "INR",
-                }).format(tax)}
+                }).format(tax)}{" "}
+                (18%)
               </span>
             </div>
           </div>

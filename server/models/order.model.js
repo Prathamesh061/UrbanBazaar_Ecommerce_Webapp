@@ -94,7 +94,6 @@ const eshop_order = new Schema({
   },
   orderStatus: {
     type: String,
-    required: true,
     default: "processing",
   },
   deliveredAt: Date,

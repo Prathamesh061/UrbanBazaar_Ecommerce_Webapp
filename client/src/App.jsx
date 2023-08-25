@@ -24,19 +24,22 @@ import axios from "axios";
 import Payment from "./components/Cart/Payment/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import OrderSuccess from "./components/Cart/OrderSuccess/OrderSuccess";
+import Orders from "./components/Cart/Orders/Orders";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
     const { data } = await axios.get("/eshop/api/v1/stripeapikey");
-
     setStripeApiKey(data.stripeApiKey);
   }
+  const stripePromise = loadStripe(stripeApiKey);
   useEffect(() => {
     store.dispatch(loadUser());
     getStripeApiKey();
   }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -54,7 +57,7 @@ function App() {
           <Route path="/account" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/orders" element={<h1>orders</h1>} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/me/update" element={<UpdateProfile />} />
           <Route path="/password/update" element={<UpdatePassword />} />
           <Route path="/password/forget" element={<ForgotPassword />} />
@@ -67,12 +70,14 @@ function App() {
           <Route
             path="/process/payment"
             element={
-              <Elements stripe={loadStripe(stripeApiKey)}>
+              <Elements stripe={stripePromise}>
                 <Payment />
               </Elements>
             }
           />
         )}
+
+        <Route path="/success" element={<OrderSuccess />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,22 @@
+.orders-container {
+    max-width: 1200px;
+    margin-inline: auto;
+    margin-bottom: 2em;
+}
+
+.orders-heading {
+    font-family: var(--ff-secondary);
+    margin: 1em;
+    color: var(--clr-sunset-orange);
+}
+
+.orders-table>div {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-bold);
+}
+
+.MuiDataGrid-columnHeader {
+    background: var(--clr-sunset-orange);
+    font-family: var(--ff-primary);
+}
