@@ -124,6 +124,15 @@ h3 {
     transition: transform 300ms linear;
 }
 
+.btn:disabled {
+    background: grey;
+    color: rgb(148, 148, 148)
+}
+
+.btn:disabled:is(:hover, :focus) {
+    transform: scale(1);
+}
+
 .btn:hover {
     transform: scale(1.07);
     opacity: .9;

@@ -1,0 +1,109 @@
+.order-details-container {
+    max-width: 1200px;
+    margin-inline: auto;
+    margin-top: 1rem;
+    padding: 2em;
+    min-height: 100vh;
+
+}
+
+.order-details-container__id {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-bold);
+    width: min-content;
+    margin-bottom: 1.5em;
+    padding: 1em;
+    background: var(--clr-sunset-orange);
+    box-shadow: var(--bs);
+}
+
+
+.order-details-container__id>span {
+    font-family: var(--ff-secondary);
+}
+
+.container__header {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: 2em;
+    color: var(--clr-sunset-orange);
+    opacity: .4;
+    width: max-content;
+}
+
+/* .container__header::after {
+    content: "";
+    display: block;
+    width: 100%;
+    margin-inline: auto;
+    height: 3px;
+    margin-top: .3em;
+    background: var(--clr-sunset-orange);
+    border-radius: 5px;
+} */
+
+.order-payment>div,
+.order-shipping-info>div {
+    margin-left: 2em;
+}
+
+.order-payment__header {
+    text-align: start;
+    margin-top: 1em;
+}
+
+.order-payment__amount {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.order-status>p {
+    text-align: start;
+    margin-top: 1em;
+    padding-left: 2em;
+    margin-bottom: 2em;
+}
+
+.order-shipping-info__header {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-bold);
+    margin-right: 1em;
+}
+
+.order-details-cart-items-box {
+    padding: 1em;
+}
+
+.order-items-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-items-img-container>img {
+    width: 5vmax;
+}
+
+.order-details-cart-items-box>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-cart-items-product-name {
+    color: var(--clr-dark);
+    padding: 1em;
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-reg);
+}
+
+.order-details-cart-items::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: var(--clr-sunset-orange);
+    margin-bottom: 2em;
+    opacity: .2;
+}

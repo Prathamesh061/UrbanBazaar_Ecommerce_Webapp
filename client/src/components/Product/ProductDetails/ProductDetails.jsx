@@ -103,40 +103,48 @@ const ProductDetails = () => {
                   }).format(product.price)}
                 </h3>
 
-                <div className="stock-container">
-                  <span
-                    className="increase-stock-btn"
-                    onClick={decreaseQuantity}
-                  >
-                    <FontAwesomeIcon icon={faMinus} className="icon-clr" />
-                  </span>
+                {product.stock >= 1 ? (
+                  <>
+                    <div className="stock-container">
+                      <span
+                        className="increase-stock-btn"
+                        onClick={decreaseQuantity}
+                      >
+                        <FontAwesomeIcon icon={faMinus} className="icon-clr" />
+                      </span>
 
-                  <input
-                    type="number"
-                    className="stock-input"
-                    min={1}
-                    value={quantity}
-                    readOnly
-                  />
+                      <input
+                        type="number"
+                        className="stock-input"
+                        min={1}
+                        value={quantity}
+                        readOnly
+                      />
 
-                  <span
-                    className="decrease-stock-btn"
-                    onClick={increaseQuantity}
-                  >
-                    <FontAwesomeIcon icon={faAdd} className="icon-clr" />
-                  </span>
-                </div>
-                <button className="add-to-cart btn" onClick={handleAddToCart}>
-                  {" "}
-                  Add To Cart
-                </button>
+                      <span
+                        className="decrease-stock-btn"
+                        onClick={increaseQuantity}
+                      >
+                        <FontAwesomeIcon icon={faAdd} className="icon-clr" />
+                      </span>
+                    </div>
+                    <button
+                      disabled={product.stock < 1}
+                      className="add-to-cart btn"
+                      onClick={handleAddToCart}
+                    >
+                      {" "}
+                      Add To Cart
+                    </button>
+                  </>
+                ) : null}
 
                 <div>
                   Status:{" "}
                   <b
                     className={product.stock < 1 ? "red-color" : "green-color"}
                   >
-                    {product < 1 ? "OutOfStock" : "InStock"}
+                    {product.stock < 1 ? "OutOfStock" : "InStock"}
                   </b>
                 </div>
 
