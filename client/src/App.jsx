@@ -31,14 +31,10 @@ import OrderDetails from "./components/Cart/Orders/OrderDetails/OrderDetails";
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
-  async function getStripeApiKey() {
+  useEffect(async () => {
     const { data } = await axios.get("/eshop/api/v1/stripeapikey");
     setStripeApiKey(data.stripeApiKey);
-  }
-  const stripePromise = loadStripe(stripeApiKey);
-  useEffect(() => {
     store.dispatch(loadUser());
-    getStripeApiKey();
   }, []);
 
   return (
@@ -72,7 +68,7 @@ function App() {
           <Route
             path="/process/payment"
             element={
-              <Elements stripe={stripePromise}>
+              <Elements stripe={loadStripe(stripeApiKey)}>
                 <Payment />
               </Elements>
             }

@@ -6,6 +6,10 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_FAIL,
   CLEAR_ERRORS,
+  NEW_REVIEW_RESET,
+  NEW_REVIEW_FAIL,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
 
@@ -57,9 +61,37 @@ export function getProductDetails(id) {
         payload: data.product,
       });
     } catch (error) {
-      console.error(error.message);
       dispatch({
         type: PRODUCT_DETAILS_FAIL,
+        payload: error.message,
+      });
+    }
+  };
+}
+
+export function addReview(reviewData) {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: NEW_REVIEW_REQUEST,
+      });
+
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const { data } = await axios.put(
+        `/eshop/api/v1/product/review`,
+        reviewData,
+        config
+      );
+
+      dispatch({
+        type: NEW_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: NEW_REVIEW_FAIL,
         payload: error.message,
       });
     }

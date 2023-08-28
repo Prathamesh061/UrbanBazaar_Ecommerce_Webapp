@@ -9,7 +9,9 @@
 .product-img-carousel {
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
     max-width: 100%;
+    height: max-content;
     box-shadow: var(--bs);
     margin-bottom: 1em;
     margin-top: 1em;
@@ -18,6 +20,7 @@
 
 .product-img-carousel__item {
     width: 100%;
+    min-height: 300px;
 }
 
 .product-details {
@@ -151,4 +154,22 @@
     cursor: pointer;
     background: var(--clr-dark);
     padding: .2em;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.dialog-text-area {
+    border: 1px solid black;
+    margin: 1em 0;
+    padding: 1em;
+    outline: none;
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-reg);
+    ;
 }

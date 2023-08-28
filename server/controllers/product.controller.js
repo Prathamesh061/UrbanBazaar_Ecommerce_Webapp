@@ -99,9 +99,11 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Product not found...", 500));
   }
 
-  const isReviewed = product.reviews.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
-  );
+  console.log(product.reviews);
+
+  const isReviewed = product.reviews.find((rev) => {
+    return rev.user.toString() === req.user._id.toString();
+  });
 
   if (isReviewed) {
     product.reviews.forEach((rev) => {
@@ -123,7 +125,7 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 
   product.rating = avg / product.reviews.length;
 
-  await product.save();
+  await product.save({ validateBeforeSave: false });
 
   res.status(200).json({
     success: true,
@@ -131,8 +133,6 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getAllReviews = catchAsyncError(async (req, res, next) => {
-  console.log(req.query);
-  console.log("getAllReviews called");
   const product = await ProductModel.findById(req.query.productId);
 
   if (!product) {

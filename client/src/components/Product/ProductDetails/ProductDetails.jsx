@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductDetails } from "../../../actions/productAction";
+import { getProductDetails, addReview } from "../../../actions/productAction";
 import { addItemsToCart } from "../../../actions/cartAction";
 import {
   Link,
@@ -15,15 +15,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
 import MetaData from "../../Utility/MetaData";
+import { Rating } from "@material-ui/lab";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Button,
+  DialogContent,
+} from "@material-ui/core";
 import "./productDetails.css";
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const url = new URLSearchParams(location.search);
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
@@ -50,6 +64,22 @@ const ProductDetails = () => {
     navigate("/cart");
   }
 
+  function handleReviewSubmit() {
+    if (!isAuthenticated) {
+      navigate(
+        `/login?message=You must log in first.&redirectTo=${location.pathname}`
+      );
+    }
+    const myForm = new FormData();
+
+    myForm.set("rating", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", params.id);
+
+    dispatch(addReview(myForm));
+
+    setOpen(false);
+  }
   useEffect(() => {
     dispatch(getProductDetails(params.id));
   }, []);
@@ -148,7 +178,37 @@ const ProductDetails = () => {
                   </b>
                 </div>
 
-                <button className="submit-review btn">Submit Review</button>
+                <button
+                  className="submit-review btn"
+                  onClick={() => setOpen(true)}
+                >
+                  Submit Review
+                </button>
+                <Dialog aria-labelledby="simple-dialog-title" open={open}>
+                  <DialogTitle>Submit Review</DialogTitle>
+                  <DialogContent className="dialog-content">
+                    <Rating
+                      onChange={(e) => setRating(e.target.value)}
+                      value={rating}
+                      size="large"
+                    />
+                    <textarea
+                      cols="30"
+                      rows="5"
+                      className="dialog-text-area"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    ></textarea>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={() => setOpen(false)} color="secondary">
+                      Cancel
+                    </Button>
+                    <Button color="primary" onClick={handleReviewSubmit}>
+                      Submit
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </>
             ) : null}
           </div>
