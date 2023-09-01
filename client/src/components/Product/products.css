@@ -62,6 +62,13 @@
     margin-top: 2em;
 }
 
+.price-box__show {
+    text-align: center;
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-body);
+}
+
 .filter-box__clear {
     margin-top: 1em;
 }

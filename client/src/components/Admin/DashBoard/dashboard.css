@@ -1,0 +1,150 @@
+.dashboard-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 300px 6fr;
+    min-height: 100vh;
+    position: relative;
+}
+
+.dashboard-sidebar-container {
+    z-index: 99;
+}
+
+.dashboard-main {
+    padding: 2em;
+    border-left: 1px solid var(--clr-sunset-orange);
+    background: var(--clr-light);
+}
+
+.dashboard-header {
+    width: max-content;
+    margin-inline: auto;
+    font-family: var(--ff-secondary);
+    text-align: center;
+    color: var(--clr-sunset-orange);
+    opacity: .6;
+    font-weight: var(--fw-bold);
+}
+
+.dashboard-header::after {
+    content: "";
+    display: block;
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 1em;
+    margin-inline: auto;
+    height: 3px;
+    background: var(--clr-sunset-orange);
+}
+
+.dashboard-total-amount {
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h3);
+    width: 100%;
+    background: var(--clr-sunset-orange);
+    padding: .5em 1em;
+    text-align: center;
+}
+
+.dashboard-total-amount>span {
+    display: block;
+}
+
+.dashboard-summary-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.dashboard-summary-link {
+    width: 200px;
+    height: 200px;
+    padding: 1em;
+    background-color: var(--clr-accent);
+    color: var(--clr-dark);
+    margin: 1em;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h3);
+    box-shadow: var(--bs);
+}
+
+.dashboard-summary-link span {
+    display: block;
+}
+
+.chart {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+}
+
+.line-chart {
+    margin-top: 2rem;
+    width: 30vmax;
+    height: 100%;
+}
+
+.doughnut-chart-container {
+    width: 30vmax;
+    margin-inline: auto;
+    height: 50vmax
+}
+
+.dashboard-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-sidebar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        transition: all 200ms ease-in-out;
+    }
+
+    .dashboard-toggle {
+        display: block;
+        position: absolute;
+        padding: .7em;
+        z-index: 99;
+    }
+}
+
+
+.show {
+    transform: translateX(0);
+}
+
+@media (max-width: 750px) {
+    .dashboard-summary-link {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 500) {
+    .dashboard-summary-link {
+        height: 100px;
+    }
+
+    .dashboard-sidebar-container {
+        width: 100%;
+    }
+
+
+}

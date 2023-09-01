@@ -11,7 +11,7 @@ module.exports = (app) => {
   app.get("/eshop/api/v1/product/reviews", productController.getAllReviews);
 
   app.post(
-    "/eshop/api/v1/admin/products",
+    "/eshop/api/v1/admin/product/new",
     [auth.authJWT, auth.authorizeRoles("admin")],
     productController.createProduct
   );
@@ -28,6 +28,12 @@ module.exports = (app) => {
     "/eshop/api/v1/admin/product/:id",
     [auth.authJWT, auth.authorizeRoles("admin")],
     productController.deleteProduct
+  );
+
+  app.get(
+    "/eshop/api/v1/admin/products",
+    [auth.authJWT, auth.authorizeRoles("admin")],
+    productController.getAdminProducts
   );
 
   app.put(

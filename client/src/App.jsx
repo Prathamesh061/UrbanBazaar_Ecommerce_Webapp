@@ -12,7 +12,7 @@ import store from "./store";
 import { loadUser } from "./actions/userAction";
 import Profile from "./components/User/Profile/Profile";
 import About from "./components/About/About";
-import DashBoard from "./components/DashBoard/DashBoard";
+import DashBoard from "./components/Admin/DashBoard/DashBoard";
 import UpdateProfile from "./components/User/UpdateProfile/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword/ForgotPassword";
@@ -27,6 +27,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import OrderSuccess from "./components/Cart/OrderSuccess/OrderSuccess";
 import Orders from "./components/Cart/Orders/Orders";
 import OrderDetails from "./components/Cart/Orders/OrderDetails/OrderDetails";
+import ProductList from "./components/Admin/ProductList/ProductList";
+import CreateProduct from "./components/Admin/CreateProduct/CreateProduct";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -53,7 +55,6 @@ function App() {
           <Route path="/login" element={<LoginSignUp />} />
           <Route path="/account" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/order/:id" element={<OrderDetails />} />
           <Route path="/me/update" element={<UpdateProfile />} />
@@ -74,8 +75,11 @@ function App() {
             }
           />
         )}
-
         <Route path="/success" element={<OrderSuccess />} />
+        // Admin Routes
+        <Route path="/admin/dashboard" element={<DashBoard />} />
+        <Route path="/admin/products" element={<ProductList />} />
+        <Route path="/admin/product" element={<CreateProduct />} />
       </Routes>
     </BrowserRouter>
   );

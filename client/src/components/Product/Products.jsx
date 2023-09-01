@@ -23,7 +23,7 @@ const categories = [
 
 function Products() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 50000]);
+  const [price, setPrice] = useState([0, 150000]);
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
   const [filterBoxOpen, setFilterBoxOpen] = useState(false);
@@ -50,7 +50,7 @@ function Products() {
   function handleFilterClear(e) {
     e.preventDefault();
     setCurrentPage(1);
-    setPrice([0, 50000]);
+    setPrice([0, 150000]);
     setCategory("");
     setRatings(0);
     navigate(`/products`);
@@ -109,11 +109,22 @@ function Products() {
                   className="price-box__slider"
                   value={price}
                   onChange={priceHandler}
-                  valueLabelDisplay="on"
+                  valueLabelDisplay="off"
                   min={0}
                   step={500}
-                  max={50000}
+                  max={150000}
                 />
+                <div className="price-box__show">
+                  {new Intl.NumberFormat("en-HI", {
+                    style: "currency",
+                    currency: "INR",
+                  }).format(price[0])}
+                  {"   "}-{"   "}
+                  {new Intl.NumberFormat("en-HI", {
+                    style: "currency",
+                    currency: "INR",
+                  }).format(price[1])}
+                </div>
               </div>
               <div className="filter-header">Categories</div>
               <ul className="category-box">

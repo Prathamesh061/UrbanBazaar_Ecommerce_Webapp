@@ -37,7 +37,7 @@ function Header() {
 
           <div className="site-logo">
             <Link to="/">
-              <img src="http://localhost:5173/site-logo.png" alt="site-logo" />
+              <img src="/site-logo.png" alt="site-logo" />
             </Link>
           </div>
 

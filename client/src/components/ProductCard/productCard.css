@@ -31,6 +31,11 @@
 
 .img-container {
     overflow: hidden;
+    min-height: 250px;
+}
+
+.img-container>img {
+    height: 250px;
 }
 
 .product-poster:focus,

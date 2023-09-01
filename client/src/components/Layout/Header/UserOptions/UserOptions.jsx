@@ -34,7 +34,7 @@ function UserOptions({ user }) {
   const dispatch = useDispatch();
 
   function dashboard() {
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
   }
 
   function orders() {

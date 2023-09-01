@@ -1,0 +1,110 @@
+.create-product-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-product-header {
+    margin-bottom: -.3em;
+}
+
+.product-creation-form {
+    text-align: center;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    box-shadow: var(--bs);
+    padding: 1em 2em;
+}
+
+.product-description {
+    margin: 0;
+    padding: 0;
+}
+
+.product-namy,
+.product-pricy,
+.product-stock,
+.product-category,
+.product-description,
+.product-form-file {
+    display: flex;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+    margin: .5em;
+    margin-inline: auto;
+    position: relative;
+}
+
+.product-namy>input,
+.product-pricy>input,
+.product-stock>input,
+.product-description>textarea,
+.product-category>select {
+    padding: .5em 1.5em;
+    padding-left: 2.5rem;
+    width: 100%;
+    border: 1px solid black;
+    outline: none;
+    font-family: var(--ff-secondary);
+}
+
+.product-namy>svg,
+.product-pricy>svg,
+.product-stock>svg,
+.product-description>svg,
+.product-category>svg {
+    position: absolute;
+    padding: .4em;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    opacity: .7;
+    left: 3px;
+
+}
+
+.product-form-file>input::file-selector-button {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-bold);
+    color: var(--clr-dark);
+    cursor: pointer;
+    width: 100%;
+    z-index: 2;
+    height: 3em;
+    transition: all 500ms;
+}
+
+.product-form-img {
+    padding: .4em;
+    display: flex;
+    width: 300px;
+    overflow: scroll;
+}
+
+.product-form-img>img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin: .2em;
+    flex-shrink: 0;
+}
+
+.create-product-form-submit-btn {
+    border-radius: 10px;
+    box-shadow: var(--bs);
+    width: 200px;
+}
+
+@media (max-width: 600px) {
+    .product-creation-form {
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .product-form-img {
+        margin-bottom: 1em;
+    }
+}
