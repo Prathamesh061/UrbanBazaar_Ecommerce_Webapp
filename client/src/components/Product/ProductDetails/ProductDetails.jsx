@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductDetails, addReview } from "../../../actions/productAction";
+import {
+  getProductDetails,
+  addReview,
+  clearErrors,
+} from "../../../actions/productAction";
 import { addItemsToCart } from "../../../actions/cartAction";
 import {
   Link,
@@ -23,7 +27,9 @@ import {
   Button,
   DialogContent,
 } from "@material-ui/core";
+import { useAlert } from "../../../contexts/alertContext";
 import "./productDetails.css";
+import { NEW_REVIEW_RESET } from "../../../constants/productConstants";
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -37,11 +43,13 @@ const ProductDetails = () => {
   const location = useLocation();
   const url = new URLSearchParams(location.search);
   const { isAuthenticated } = useSelector((state) => state.user);
-
+  const alert = useAlert();
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
-
+  const { success, error: reviewError } = useSelector(
+    (state) => state.newReview
+  );
   const activeStyles = {
     fontWeight: "bold",
     textDecoration: "underline",
@@ -83,6 +91,23 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getProductDetails(params.id));
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      alert(error, "errory");
+      dispatch(clearErrors());
+    }
+
+    if (reviewError) {
+      alert(reviewError, "errory");
+      dispatch(clearErrors());
+    }
+
+    if (success) {
+      alert("Review Submitted Successfully", "success");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+  }, [dispatch, error, success, reviewError]);
 
   return (
     <>

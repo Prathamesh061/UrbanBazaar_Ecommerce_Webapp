@@ -6,18 +6,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { clearErrors, forgotPassword } from "../../../actions/userAction";
 import Loader from "../../Layout/Loader/Loader";
+import { useAlert } from "../../../contexts/alertContext";
 import "./forgotPassword.css";
+import {
+  FORGOT_PASSWORD_FAIL,
+  FORGOT_PASSWORD_RESET,
+} from "../../../constants/userConstants";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
 
-  const [showMessage, setShowMessage] = useState(false);
-  const [showError, setShowError] = useState(false);
-
   const { error, message, loading } = useSelector(
     (state) => state.forgotPassword
   );
+
+  const alert = useAlert();
 
   function handleForgotPassoword(e) {
     e.preventDefault();
@@ -30,17 +34,17 @@ function ForgotPassword() {
 
   useEffect(() => {
     if (error) {
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-        dispatch(clearErrors());
-      }, 5000);
+      alert(error, "errory");
+      dispatch(clearErrors());
     }
+
     if (message) {
-      setShowMessage(true);
-      setTimeout(() => setShowMessage(false), 3000);
+      alert(message, "success");
+      dispatch({
+        type: FORGOT_PASSWORD_RESET,
+      });
     }
-  }, [error, message]);
+  }, [dispatch, error, message, loading]);
   return (
     <>
       {loading ? (
@@ -51,8 +55,6 @@ function ForgotPassword() {
           <Link to={`/login`} relative="path" className="profile-back-btn">
             &larr; <span>Back</span>
           </Link>
-          {showError && <p className="error">{error}</p>}
-          {showMessage && <p className="message">{message}</p>}
           <div className="forgot-password-container">
             <div className="forgot-box">
               <h2 className="forgot-password-container__header">

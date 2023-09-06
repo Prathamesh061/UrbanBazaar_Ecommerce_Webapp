@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import MetaData from "../../../Utility/MetaData";
-import { getOrderDetails } from "../../../../actions/orderAction";
+import { clearErrors, getOrderDetails } from "../../../../actions/orderAction";
 import Loader from "../../../Layout/Loader/Loader";
+import { useAlert } from "../../../../contexts/alertContext";
 import "./orderDetails.css";
 
 function OrderDetails() {
@@ -13,6 +14,7 @@ function OrderDetails() {
   const params = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const alert = useAlert();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -21,9 +23,15 @@ function OrderDetails() {
       );
     }
 
+    if (error) {
+      alert(error, "errory");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, loading, isAuthenticated]);
+
+  useEffect(() => {
     dispatch(getOrderDetails(params.id));
   }, []);
-
   return loading ? (
     <Loader />
   ) : (

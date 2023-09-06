@@ -66,6 +66,7 @@ export const register = (userData) => async (dispatch) => {
 
     dispatch({ type: REGISTER_USER_SUCCESS });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: REGISTER_USER_FAIL,
       payload: error.response.data.message,
@@ -75,7 +76,7 @@ export const register = (userData) => async (dispatch) => {
 
 export const loadUser = () => async (dispatch) => {
   try {
-    // dispatch({ type: LOAD_USER_REQUEST });
+    dispatch({ type: LOAD_USER_REQUEST });
 
     const { data } = await axios.get(`/eshop/api/v1/me`);
 

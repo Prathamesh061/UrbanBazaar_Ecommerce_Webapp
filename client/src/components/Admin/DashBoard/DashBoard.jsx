@@ -19,6 +19,7 @@ import {
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAdminProducts } from "../../../actions/productAction";
+import { getAllOrders } from "../../../actions/orderAction";
 
 ChartJS.register(
   CategoryScale,
@@ -44,7 +45,8 @@ function DashBoard() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { orders, loading } = useSelector((state) => state.allOrders);
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -64,10 +66,14 @@ function DashBoard() {
       {
         backgroundColor: ["#B27092", "#87BAAB"],
         hoverBackgroundColor: ["#B27045"],
-        data: [outOfStock, products.length - outOfStock],
+        data: [outOfStock, products?.length - outOfStock],
       },
     ],
   };
+  useEffect(() => {
+    dispatch(getAdminProducts());
+    dispatch(getAllOrders());
+  }, []);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -79,8 +85,7 @@ function DashBoard() {
         `/login?message=Dashboard: Only Admin View.&login=active&redirectTo=${location.pathname}`
       );
     }
-    dispatch(getAdminProducts());
-  }, [user, isAuthenticated, loading]);
+  }, [user, isAuthenticated]);
 
   return loading ? (
     <Loader />
@@ -115,7 +120,7 @@ function DashBoard() {
             Product <span>{products?.length}</span>
           </Link>
           <Link to="/admin/orders" className="dashboard-summary-link">
-            Orders <span>4</span>
+            Orders <span>{orders?.length}</span>
           </Link>
           <Link to="/admin/users" className="dashboard-summary-link">
             Users <span>2</span>

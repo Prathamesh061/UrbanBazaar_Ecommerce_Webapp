@@ -1,0 +1,124 @@
+.order-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.main-order-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 2em;
+}
+
+.update-container {
+    border-left: 3px solid var(--clr-sunset-orange);
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+}
+
+.update-container>div {
+    padding: 2em;
+}
+
+.update-container>div:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-order-status {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 2em;
+    border-left: 3px solid var(--clr-sunset-orange);
+}
+
+.update-order-payment {
+    padding: 1em;
+    border-bottom: 3px solid var(--clr-sunset-orange);
+    margin-bottom: 1em;
+}
+
+.update-shipping-info {
+    border-bottom: 3px solid var(--clr-sunset-orange);
+    margin-bottom: 1em;
+}
+
+.update-order-status-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.update-order-category {
+    margin-bottom: 2em;
+}
+
+.update-order-category>select {
+    padding: 0.5em 1.5em;
+    padding-left: 2.5rem;
+    margin: 0;
+    width: 100%;
+    border: 1px solid black;
+    outline: none;
+    font-family: var(--ff-secondary);
+}
+
+.update-order-category>svg {
+    position: absolute;
+    padding: 0.4em;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body);
+    opacity: .7;
+}
+
+.update-order-form-header {
+    font-size: var(--fs-h3);
+}
+
+.update-order-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.update-status-order>h2 {
+    margin-bottom: .5em;
+}
+
+.update-status-order>span {
+    text-transform: uppercase;
+}
+
+.update-order-payment p {
+    text-transform: uppercase;
+}
+
+@media (max-width:900px) {
+    .update-container {
+        display: block;
+        border: 0;
+    }
+
+    .update-cart-items {
+        border-bottom: 3px solid var(--clr-sunset-orange);
+        margin-bottom: 1em;
+    }
+
+    .update-order-summary {
+        border: 0;
+        display: block;
+    }
+
+    .update-order-container {
+        display: block;
+    }
+
+    .update-order-status {
+        padding-top: 0;
+        padding-bottom: 2em;
+    }
+}

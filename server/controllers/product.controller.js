@@ -90,6 +90,38 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Product not found...", 500));
   }
 
+  let images = [];
+
+  if (Array.isArray(req.body.images)) {
+    images = [...req.body.images];
+  } else if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = undefined;
+  }
+
+  if (!!images) {
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    req.body.images = imagesLinks;
+  } else {
+    req.body.images = product.images;
+  }
+
   product = await ProductModel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -105,6 +137,10 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
 
   if (!product) {
     return next(new ErrorHandler("Product not found...", 500));
+  }
+
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);
   }
 
   await product.deleteOne();
@@ -211,7 +247,7 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
   const rating = avg / reviews.length;
   const numOfReviews = reviews.length;
 
-  await Product.findByIdAndUpdate(
+  await ProductModel.findByIdAndUpdate(
     req.query.productId,
     {
       reviews,

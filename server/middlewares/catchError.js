@@ -33,6 +33,23 @@ module.exports = (err, req, res, next) => {
     err = new ErrorHandler(message, 400);
   }
 
+  if (err.name === "TokenExpiredError") {
+    const message = `Json Web Token is Expired, Try again `;
+    err = new ErrorHandler(message, 400);
+  }
+
+  if (err.name == "ValidationError") {
+    let errorMessages = "";
+
+    for (const key in err.errors) {
+      if (err.errors.hasOwnProperty(key)) {
+        const errorMessage = err.errors[key].properties.message;
+        errorMessages += errorMessage + "; ";
+      }
+    }
+
+    err = new ErrorHandler(errorMessages, 400);
+  }
   res.status(err.statusCode).json({
     success: false,
     statusCode: err.statusCode,

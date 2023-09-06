@@ -23,7 +23,7 @@ const categories = [
 
 function Products() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 150000]);
+  const [price, setPrice] = useState([0, 200000]);
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
   const [filterBoxOpen, setFilterBoxOpen] = useState(false);
@@ -50,7 +50,7 @@ function Products() {
   function handleFilterClear(e) {
     e.preventDefault();
     setCurrentPage(1);
-    setPrice([0, 150000]);
+    setPrice([0, 200000]);
     setCategory("");
     setRatings(0);
     navigate(`/products`);

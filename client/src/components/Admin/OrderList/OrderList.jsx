@@ -5,52 +5,67 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAlert } from "../../../contexts/alertContext";
 import {
   clearErrors,
-  deleteProduct,
-  getAdminProducts,
-} from "../../../actions/productAction";
+  getAllOrders,
+  deleteOrder,
+} from "../../../actions/orderAction";
 import { Button } from "@material-ui/core";
 import MetaData from "../../Utility/MetaData";
 import Sidebar from "../Sidebar/Sidebar";
-import "./productList.css";
+import "./orderList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
   faDeleteLeft,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import { DELETE_PRODUCT_RESET } from "../../../constants/productConstants";
+import { DELETE_ORDER_RESET } from "../../../constants/orderConstants";
 
-function ProductList() {
+function OrderList() {
   const [openDashboardToggle, setOpenDashboardToggle] = useState(false);
+
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { error: deleteError, isDeleted } = useSelector(
-    (state) => state.product
-  );
-  const { user, isAuthenticated } = useSelector((state) => state.user);
-  const { products } = useSelector((state) => state.products);
-
   const alert = useAlert();
-  function handleProductDelete(id) {
-    dispatch(deleteProduct(id));
+
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { orders, error } = useSelector((state) => state.allOrders);
+  const { error: deleteError, isDeleted } = useSelector((state) => state.order);
+
+  function handleOrderDelete(id) {
+    dispatch(deleteOrder(id));
   }
   const columns = [
-    { field: "id", headerName: "Product ID", minWidth: 100, flex: 0.5 },
-    { field: "name", headerName: "Name", minWidth: 150, flex: 0.5 },
     {
-      field: "stock",
-      headerName: "Stock",
-      minWidth: 150,
-      flex: 0.3,
-      type: "number",
-    },
-    {
-      field: "price",
-      headerName: "Price",
+      field: "id",
+      headerName: "Order Id",
       minWidth: 150,
       flex: 0.5,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      minWidth: 150,
+      flex: 0.5,
+      cellClassName: (params) => {
+        return params.getValue(params.id, "status") === "delivered"
+          ? "message"
+          : "error";
+      },
+    },
+    {
+      field: "itemsQty",
+      headerName: "Items Qty",
       type: "number",
+      minWidth: 150,
+      flex: 0.3,
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      minWidth: 150,
+      flex: 0.3,
     },
     {
       field: "actions",
@@ -62,7 +77,7 @@ function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
               <FontAwesomeIcon icon={faEdit} className="icon-clr" />
             </Link>
             <Button>
@@ -70,7 +85,7 @@ function ProductList() {
                 icon={faDeleteLeft}
                 className="icon-clr"
                 onClick={() =>
-                  handleProductDelete(params.getValue(params.id, "id"))
+                  handleOrderDelete(params.getValue(params.id, "id"))
                 }
               />
             </Button>
@@ -81,18 +96,20 @@ function ProductList() {
   ];
 
   const rows = [];
-  products &&
-    products.forEach((item) => {
+  orders &&
+    orders.forEach((item) => {
       rows.push({
         id: item._id,
-        stock: item.stock,
-        price: new Intl.NumberFormat("en-HI", {
+        itemQty: item.orderItems.length,
+        amount: new Intl.NumberFormat("en-HI", {
           style: "currency",
           currency: "INR",
-        }).format(item.price),
-        name: item.name,
+        }).format(item.totalPrice),
+        status: item.orderStatus,
       });
     });
+
+  console.log(isDeleted);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -105,23 +122,29 @@ function ProductList() {
       );
     }
 
+    if (error) {
+      alert(error, "errory");
+      dispatch(clearErrors());
+    }
+
     if (deleteError) {
       alert(deleteError, "errory");
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert("Product successfully deleted!", "success");
-      navigate("/admin/dashboard");
+      alert("Order successfully deleted!", "success");
+      navigate("/admin/orders");
       dispatch({
-        type: DELETE_PRODUCT_RESET,
+        type: DELETE_ORDER_RESET,
       });
     }
-    dispatch(getAdminProducts());
+
+    dispatch(getAllOrders());
   }, [dispatch, isDeleted, deleteError]);
   return (
     <>
-      <MetaData title="Products : Admin" />
+      <MetaData title="Orders : Admin" />
       <div className="dashboard-container">
         <div className="dashboard-toggle" aria-label="dashboard toggler">
           {!openDashboardToggle ? (
@@ -141,7 +164,7 @@ function ProductList() {
         </div>
         <div className="dashboard-main product-list-container">
           <h2 className="dashboard-header product-list-container__header">
-            All PRODUCTS
+            All ORDERS
           </h2>
           <DataGrid
             columns={columns}
@@ -157,4 +180,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default OrderList;

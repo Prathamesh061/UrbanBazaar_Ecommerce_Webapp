@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { clearErrors, createProduct } from "../../../actions/productAction";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  clearErrors,
+  getProductDetails,
+  updateProduct,
+} from "../../../actions/productAction";
 import MetaData from "../../Utility/MetaData";
 import Sidebar from "../Sidebar/Sidebar";
-import { useAlert } from "../../../contexts/alertContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -14,9 +17,10 @@ import {
   faList,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { NEW_PRODUCT_RESET } from "../../../constants/productConstants";
-import "./createProduct.css";
+import { UPDATE_PRODUCT_RESET } from "../../../constants/productConstants";
 import Loader from "../../Layout/Loader/Loader";
+import { useAlert } from "../../../contexts/alertContext";
+import "./updateProduct.css";
 
 const categories = [
   "Laptop",
@@ -29,26 +33,34 @@ const categories = [
   "Smartphones",
 ];
 
-function CreateProduct() {
+function UpdateProduct() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
   const [openDashboardToggle, setOpenDashboardToggle] = useState(false);
 
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const params = useParams();
 
+  const { error, product } = useSelector((state) => state.productDetails);
   const { user, isAuthenticated } = useSelector((state) => state.user);
-  const { loading, error, success } = useSelector((state) => state.newProduct);
-
+  const {
+    loading,
+    error: updateError,
+    isUpdated,
+  } = useSelector((state) => state.product);
   const alert = useAlert();
 
-  function handleSubmitProductCreation(e) {
+  const productId = params.id;
+
+  function handleProductUpdation(e) {
     e.preventDefault();
 
     const myForm = new FormData();
@@ -63,13 +75,14 @@ function CreateProduct() {
       myForm.append(`images[${index}]`, img);
     });
 
-    dispatch(createProduct(myForm));
+    dispatch(updateProduct(productId, myForm));
   }
 
-  function createProductImagesChange(e) {
+  function updateProductImageChange(e) {
     const files = Array.from(e.target.files);
 
     setImages([]);
+    setOldImages([]);
     setImagesPreview([]);
 
     files.forEach((file) => {
@@ -84,7 +97,19 @@ function CreateProduct() {
       reader.readAsDataURL(file);
     });
   }
+
   useEffect(() => {
+    dispatch(getProductDetails(productId));
+  }, []);
+
+  useEffect(() => {
+    setName(product?.name);
+    setDescription(product?.description);
+    setPrice(product?.price);
+    setCategory(product?.category);
+    setStock(product?.stock);
+    setOldImages(product?.images);
+
     if (!isAuthenticated) {
       navigate(
         `/login?message=You must log in first.&redirectTo=${location.pathname}`
@@ -95,21 +120,43 @@ function CreateProduct() {
       );
     }
 
+    if (isUpdated) {
+      navigate("/admin/dashboard");
+      dispatch({
+        type: UPDATE_PRODUCT_RESET,
+      });
+    }
+
     if (error) {
       alert(error, "errory");
       dispatch(clearErrors());
     }
 
-    if (success) {
-      alert("Product Successfully Created!", "success");
-      navigate("/admin/dashboard");
-      dispatch({ type: NEW_PRODUCT_RESET });
+    if (updateError) {
+      alert(updateError, "errory");
+      dispatch(clearErrors());
     }
-  }, [dispatch, success, isAuthenticated, user, error, loading]);
+
+    if (isUpdated) {
+      alert("Product successfully updated!", "success");
+      dispatch({
+        type: UPDATE_PRODUCT_RESET,
+      });
+    }
+  }, [
+    dispatch,
+    isAuthenticated,
+    user,
+    isUpdated,
+    productId,
+    product,
+    error,
+    updateError,
+  ]);
+
   return (
     <>
       <MetaData title={`Add Product`} />
-
       <div className="dashboard-container">
         <div className="dashboard-toggle" aria-label="dashboard toggler">
           {!openDashboardToggle ? (
@@ -127,18 +174,24 @@ function CreateProduct() {
         >
           <Sidebar setOpenDashboardToggle={setOpenDashboardToggle} />
         </div>
-
-        <div className="dashboard-main create-product-main">
-          {loading ? (
-            <Loader />
-          ) : (
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="dashboard-main create-product-main">
+            <Link
+              to={`/admin/products`}
+              relative="path"
+              className="profile-back-btn"
+            >
+              &larr; <span>Back</span>
+            </Link>
             <form
               className="product-creation-form"
               encType="multipart/form-data"
-              onSubmit={handleSubmitProductCreation}
+              onSubmit={handleProductUpdation}
             >
               <h2 className="dashboard-header create-product-header">
-                Create Product
+                Update Product
               </h2>
               <div className="product-namy">
                 <FontAwesomeIcon icon={faUser} className="icon-clr" />
@@ -167,7 +220,10 @@ function CreateProduct() {
 
               <div className="product-category">
                 <FontAwesomeIcon icon={faList} className="icon-clr" />
-                <select onChange={(e) => setCategory(e.target.value)}>
+                <select
+                  onChange={(e) => setCategory(e.target.value)}
+                  value={category}
+                >
                   <option value="">Choose Category</option>
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>
@@ -196,15 +252,28 @@ function CreateProduct() {
                   onChange={(e) => setDescription(e.target.value)}
                   id=""
                   cols="30"
-                  rows="1"
+                  rows="2"
                 ></textarea>
               </div>
 
               <div
                 className="product-form-file"
-                onChange={createProductImagesChange}
+                onChange={updateProductImageChange}
               >
                 <input type="file" name="avatar" accept="image/*" multiple />
+              </div>
+
+              <div className="product-form-img old-images">
+                {oldImages &&
+                  oldImages.map((img, index) => {
+                    return (
+                      <img
+                        src={img.url}
+                        key={index}
+                        alt="Old Product preview"
+                      />
+                    );
+                  })}
               </div>
 
               <div className="product-form-img">
@@ -218,14 +287,14 @@ function CreateProduct() {
                 type="submit"
                 disabled={loading}
               >
-                Create
+                UPDATE
               </button>
             </form>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
 }
 
-export default CreateProduct;
+export default UpdateProduct;

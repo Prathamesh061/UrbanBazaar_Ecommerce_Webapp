@@ -61,6 +61,11 @@
 
 .nav__list:nth-child(1) {
     padding-right: 0;
+    flex: 2;
+}
+
+.nav__list:nth-child(2) {
+    flex: 1;
 }
 
 .nav__link {

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import MetaData from "../../Utility/MetaData";
 import CheckoutSteps from "../CheckoutSteps/CheckoutSteps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAlert } from "../../../contexts/alertContext";
 import {
   CardNumberElement,
   CardCvcElement,
@@ -31,6 +32,8 @@ function Payment() {
   const { error } = useSelector((state) => state.newOrder);
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const payBtn = useRef(null);
+
+  const alert = useAlert();
 
   const order = {
     shippingInfo,
@@ -81,6 +84,7 @@ function Payment() {
       });
 
       if (result.error) {
+        alert(result.error.message, "errory");
         payBtn.current.disabled = false;
       } else {
         if (result.paymentIntent.status === "succeeded") {
@@ -92,7 +96,8 @@ function Payment() {
           dispatch(createOrder(order));
           navigate("/success");
         } else {
-          navigate("/error");
+          alert("Payment Failed", "errory");
+          navigate("/orders");
         }
       }
     } catch (error) {

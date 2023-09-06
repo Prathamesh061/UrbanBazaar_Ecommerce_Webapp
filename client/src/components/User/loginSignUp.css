@@ -201,27 +201,3 @@
         width: 5vmax
     }
 }
-
-.error {
-    font-family: var(--ff-secondary);
-    font-weight: var(--fw-bold);
-    font-size: var(--fs-body);
-    color: #cc0000;
-    text-align: center;
-    margin-inline: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 0;
-}
-
-.message {
-    font-family: var(--ff-secondary);
-    font-weight: var(--fw-bold);
-    font-size: var(--fs-body);
-    color: green;
-    text-align: center;
-    margin-inline: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 0;
-}

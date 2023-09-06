@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, clearErrors } from "../../actions/userAction";
+import { useAlert } from "../../contexts/alertContext";
+
 import "./loginSignUp.css";
 
 function LoginSignUp() {
@@ -21,12 +23,11 @@ function LoginSignUp() {
   const [avatarPreview, setAvatarPreview] = useState("/profile.png");
   const [showLogin, setShowLogin] = useState(true);
   const [showRegister, setShowRegister] = useState(false);
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-
+  const alert = useAlert();
   const { name, email, password } = user;
 
   let { loading, error, isAuthenticated } = useSelector((state) => state.user);
@@ -53,8 +54,6 @@ function LoginSignUp() {
       setShowLogin(false);
       setShowRegister(true);
     }
-
-    dispatch(clearErrors());
   }
 
   function loginSubmit(e) {
@@ -80,14 +79,22 @@ function LoginSignUp() {
 
   useEffect(() => {
     const url = new URLSearchParams(location.search);
-    setMessage(url.get("message"));
     if (
       isAuthenticated &&
       !(url.get("login") && url.get("login") == "active")
     ) {
       navigate(`${url.get("redirectTo") || ""}` || "/account");
     }
-  }, [error, dispatch, isAuthenticated, message]);
+
+    if (error) {
+      alert(error, "errory");
+      setTimeout(() => dispatch(clearErrors()), 5000);
+    }
+
+    if (!isAuthenticated && !error && url.get("message")) {
+      alert(url.get("message"), "errory");
+    }
+  }, [error, dispatch, isAuthenticated]);
 
   return (
     <>
@@ -124,8 +131,6 @@ function LoginSignUp() {
               ref={loginTab}
               onSubmit={loginSubmit}
             >
-              {message && <p className="message">{message}</p>}
-              {!message && error && <p className="error">{error}</p>}
               <div className="login-email">
                 <FontAwesomeIcon icon={faEnvelope} className="icon-clr" />
                 <input
@@ -157,8 +162,6 @@ function LoginSignUp() {
               encType="multipart/form-data"
               onSubmit={handleRegisterSubmit}
             >
-              {error && <p className="error">{error}</p>}
-
               <div className="signup-name">
                 <FontAwesomeIcon icon={faEnvelope} className="icon-clr" />
                 <input

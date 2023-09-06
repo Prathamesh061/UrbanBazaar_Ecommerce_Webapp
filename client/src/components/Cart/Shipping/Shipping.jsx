@@ -15,6 +15,7 @@ import {
 import { Country, State } from "country-state-city";
 import "./shipping.css";
 import CheckoutSteps from "../CheckoutSteps/CheckoutSteps";
+import { useAlert } from "../../../contexts/alertContext";
 
 function Shipping() {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
@@ -25,17 +26,16 @@ function Shipping() {
   const [country, setCountry] = useState(shippingInfo.country);
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [phoneNum, setPhoneNum] = useState(shippingInfo.phoneNo);
-  const [message, setMessage] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   function handleShippingSubmit(e) {
     e.preventDefault();
 
     if (phoneNum.length < 10 || phoneNum.length > 10) {
-      setMessage("Phone Number should be of 10 digits");
-      setTimeout(() => setMessage(""), 3000);
+      alert("Number should be of 10 digits", "errory");
       return;
     }
 
@@ -75,9 +75,6 @@ function Shipping() {
             encType="multipart/form-data"
             onSubmit={handleShippingSubmit}
           >
-            {error && <p className="error">{error}</p>}
-            {message && <p className="error">{message}</p>}
-
             <div className="address-name">
               <FontAwesomeIcon icon={faHouse} className="icon-clr" />
               <input

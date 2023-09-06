@@ -25,6 +25,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  FORGOT_PASSWORD_RESET,
 } from "../constants/userConstants";
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -163,6 +164,11 @@ export const forgotPasswordReducer = (state = { user: {} }, action) => {
         error: action.payload,
       };
 
+    case FORGOT_PASSWORD_RESET:
+      return {
+        ...state,
+        message: null,
+      };
     case CLEAR_ERRORS:
       return {
         ...state,

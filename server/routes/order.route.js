@@ -6,12 +6,12 @@ module.exports = (app) => {
 
   app.get(
     "/eshop/api/v1/order/:id",
-    [authJWT, authorizeRoles("admin")],
+    [authJWT],
     orderController.getOrderDetails
   );
 
   app.get(
-    "/eshop/api/v1/orders",
+    "/eshop/api/v1/admin/orders",
     [authJWT, authorizeRoles("admin")],
     orderController.getAllOrderDetails
   );
@@ -19,13 +19,13 @@ module.exports = (app) => {
   app.get("/eshop/api/v1/orders/me", [authJWT], orderController.myOrders);
 
   app.put(
-    "/eshop/api/v1/order/:id",
+    "/eshop/api/v1/admin/order/:id",
     [authJWT, authorizeRoles("admin")],
     orderController.updateOrder
   );
 
   app.delete(
-    "/eshop/api/v1/order/:id",
+    "/eshop/api/v1/admin/order/:id",
     [authJWT, authorizeRoles("admin")],
     orderController.deleteOrder
   );
