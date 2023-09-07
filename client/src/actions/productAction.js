@@ -21,6 +21,12 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAIL,
+  ALL_REVIEW_FAIL,
+  ALL_REVIEW_REQUEST,
+  ALL_REVIEW_SUCCESS,
+  DELETE_REVIEW_FAIL,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
 
@@ -201,6 +207,54 @@ export function updateProduct(id, productData) {
       dispatch({
         type: UPDATE_PRODUCT_FAIL,
         payload: error.message,
+      });
+    }
+  };
+}
+
+export function getAllReviews(id) {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: ALL_REVIEW_REQUEST,
+      });
+
+      const { data } = await axios.get(
+        `/eshop/api/v1/product/reviews?id=${id}`
+      );
+
+      dispatch({
+        type: ALL_REVIEW_SUCCESS,
+        payload: data.reviews,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+}
+
+export function deleteReviews(reviewId, productId) {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: DELETE_REVIEW_REQUEST,
+      });
+
+      const { data } = await axios.delete(
+        `/eshop/api/v1/product/reviews?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_REVIEW_FAIL,
+        payload: error.response.data.message,
       });
     }
   };

@@ -23,7 +23,7 @@ function Home() {
       ) : (
         <div className="home">
           <MetaData title="UrbanBazaar | Home" />
-          <h2 className="home-header">Featured Products</h2>
+          <h2 className="home-header">Latest Launches</h2>
           <div className="product-container">
             {products &&
               products.map((product) => (

@@ -1,0 +1,9 @@
+.user-update-btn {
+    border-radius: 10px;
+    margin-top: 2em;
+    box-shadow: var(--bs);
+}
+
+.update-user-form {
+    padding: 2em;
+}

@@ -90,7 +90,7 @@ const ProductDetails = () => {
   }
   useEffect(() => {
     dispatch(getProductDetails(params.id));
-  }, []);
+  }, [success]);
 
   useEffect(() => {
     if (error) {

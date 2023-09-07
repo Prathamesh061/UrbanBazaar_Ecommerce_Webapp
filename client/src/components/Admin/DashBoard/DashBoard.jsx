@@ -20,6 +20,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAdminProducts } from "../../../actions/productAction";
 import { getAllOrders } from "../../../actions/orderAction";
+import { getAllUsers } from "../../../actions/userAction";
 
 ChartJS.register(
   CategoryScale,
@@ -47,6 +48,7 @@ function DashBoard() {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const { orders, loading } = useSelector((state) => state.allOrders);
+  const { users } = useSelector((state) => state.allUsers);
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -73,6 +75,7 @@ function DashBoard() {
   useEffect(() => {
     dispatch(getAdminProducts());
     dispatch(getAllOrders());
+    dispatch(getAllUsers());
   }, []);
 
   useEffect(() => {
@@ -123,7 +126,7 @@ function DashBoard() {
             Orders <span>{orders?.length}</span>
           </Link>
           <Link to="/admin/users" className="dashboard-summary-link">
-            Users <span>2</span>
+            Users <span>{users?.length}</span>
           </Link>
         </div>
 

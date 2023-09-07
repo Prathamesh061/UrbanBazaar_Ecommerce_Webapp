@@ -5,15 +5,21 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import Loader from "../../Layout/Loader/Loader";
 import "./profile.css";
 import { loadUser } from "../../../actions/userAction";
+import { useAlert } from "../../../contexts/alertContext";
 
 function Profile() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const alert = useAlert();
   const [message, setMessage] = useState(
     new URLSearchParams(location.search).get("message")
   );
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, []);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -21,25 +27,22 @@ function Profile() {
         `/login?message=You must log in first.&redirectTo=${location.pathname}`
       );
     }
+
     if (message) {
-      dispatch(loadUser());
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
+      alert(message, "success");
     }
-  }, [message, isAuthenticated, user]);
+  }, [message]);
 
   return loading ? (
     <Loader />
   ) : (
     <>
-      <MetaData title={`${user.name} | UrbanBazaar`} />
-      {message && <h3 className="green-color message">{message} </h3>}
+      <MetaData title={`${user?.name} | UrbanBazaar`} />
       <div className="profile-container">
         <div className="profile-picture-container">
           <img
-            src={user.avatar?.url || "/profile.png"}
-            alt={user.name}
+            src={user?.avatar?.url || "/profile.png"}
+            alt={user?.name}
             className="profile-picture-container__picture"
           />
           <Link to="/me/update" className="btn edit-profile-btn">
@@ -50,16 +53,16 @@ function Profile() {
         <div className="profile-info-container">
           <div>
             <h3 className="profile-info__subheader">Full name</h3>
-            <p className="profile-info-data">{user.name}</p>
+            <p className="profile-info-data">{user?.name}</p>
           </div>
           <div>
             <h3 className="profile-info__subheader">Email</h3>
-            <p className="profile-info-data">{user.email}</p>
+            <p className="profile-info-data">{user?.email}</p>
           </div>
           <div>
             <h3 className="profile-info__subheader">Date joined</h3>
             <p className="profile-info-data">
-              {new Date(user.createdAt).toLocaleDateString()}
+              {new Date(user?.createdAt).toLocaleDateString()}
             </p>
           </div>
           <div>

@@ -31,6 +31,10 @@ import CreateProduct from "./components/Admin/CreateProduct/CreateProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct/UpdateProduct";
 import OrderList from "./components/Admin/OrderList/OrderList";
 import UpdateOrder from "./components/Admin/OrderList/UpdateOrder/UpdateOrder";
+import Users from "./components/Admin/Users/Users";
+import UpdateUser from "./components/Admin/UpdateUser/UpdateUser";
+import AdminProductReviews from "./components/Admin/AdminProductReviews/AdminProductReviews";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -54,7 +58,7 @@ function App() {
           </Route>
           <Route path="/products" element={<Products />} />
           <Route path="/products/search/:productName" element={<Products />} />
-          <Route path="/contact" element={<h1>contact</h1>} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginSignUp />} />
           <Route path="/account" element={<Profile />} />
@@ -87,6 +91,9 @@ function App() {
         <Route path="/admin/product/:id" element={<UpdateProduct />} />
         <Route path="/admin/orders" element={<OrderList />} />
         <Route path="/admin/order/:id" element={<UpdateOrder />} />
+        <Route path="/admin/users/" element={<Users />} />
+        <Route path="/admin/user/:id" element={<UpdateUser />} />
+        <Route path="/admin/reviews" element={<AdminProductReviews />} />
       </Routes>
     </Router>
   );

@@ -201,7 +201,7 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getAllReviews = catchAsyncError(async (req, res, next) => {
-  const product = await ProductModel.findById(req.query.productId);
+  const product = await ProductModel.findById(req.query.id);
 
   if (!product) {
     return next(new ErrorHandler("Product Not found", 404));

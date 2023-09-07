@@ -94,7 +94,7 @@ function LoginSignUp() {
     if (!isAuthenticated && !error && url.get("message")) {
       alert(url.get("message"), "errory");
     }
-  }, [error, dispatch, isAuthenticated]);
+  }, [error, dispatch, isAuthenticated, loading]);
 
   return (
     <>

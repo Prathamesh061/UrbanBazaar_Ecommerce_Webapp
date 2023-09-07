@@ -26,7 +26,7 @@ function UserOptions({ user }) {
     { icon: faLongArrowAltRight, name: "Logout", func: logoutUser },
   ];
 
-  if (user.role === "admin") {
+  if (user && user?.role === "admin") {
     options.unshift({ icon: faDashboard, name: "Dashboard", func: dashboard });
   }
 
@@ -61,7 +61,7 @@ function UserOptions({ user }) {
         icon={
           <img
             className="speed-dial-icon"
-            src={user.avatar.url || "/profile.png"}
+            src={user?.avatar?.url || "/profile.png"}
             alt="user-profile"
           />
         }
@@ -69,10 +69,10 @@ function UserOptions({ user }) {
       >
         {options.map((item) => (
           <SpeedDialAction
-            key={item.name}
-            icon={<FontAwesomeIcon icon={item.icon} className="icon-clr" />}
-            tooltipTitle={item.name}
-            onClick={item.func}
+            key={item?.name}
+            icon={<FontAwesomeIcon icon={item?.icon} className="icon-clr" />}
+            tooltipTitle={item?.name}
+            onClick={item?.func}
             tooltipOpen={window.innerWidth < 600}
           />
         ))}

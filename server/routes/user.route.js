@@ -25,19 +25,19 @@ module.exports = (app) => {
   );
 
   app.get(
-    "/eshop/api/v1/admin/users/:id",
+    "/eshop/api/v1/admin/user/:id",
     [auth.authJWT, auth.authorizeRoles("admin")],
     userController.getUserById
   );
 
   app.put(
-    "/eshop/api/v1/admin/users/:id",
+    "/eshop/api/v1/admin/user/:id",
     [auth.authJWT, auth.authorizeRoles("admin")],
     userController.updateUserRole
   );
 
   app.delete(
-    "/eshop/api/v1/admin/users/:id",
+    "/eshop/api/v1/admin/user/:id",
     [auth.authJWT, auth.authorizeRoles("admin")],
     userController.deleteUser
   );
