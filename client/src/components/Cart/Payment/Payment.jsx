@@ -38,13 +38,13 @@ function Payment() {
   const order = {
     shippingInfo,
     orderItems: cartItems,
-    itemsPrice: orderInfo.subTotal,
-    taxPrice: orderInfo.tax,
-    shippingPrice: orderInfo.shippingCharges,
-    totalPrice: orderInfo.totalPrice,
+    itemsPrice: orderInfo?.subTotal,
+    taxPrice: orderInfo?.tax,
+    shippingPrice: orderInfo?.shippingCharges,
+    totalPrice: orderInfo?.totalPrice,
   };
   const paymentData = {
-    product: cartItems.map((item) => ({
+    product: cartItems?.map((item) => ({
       id: item.productId,
       quantity: item.quantity,
     })),
@@ -63,7 +63,7 @@ function Payment() {
         config
       );
 
-      const client_secret = data.client_secret;
+      const client_secret = data?.client_secret;
       if (!stripe || !elements) return;
 
       const result = await stripe.confirmCardPayment(client_secret, {
@@ -111,7 +111,10 @@ function Payment() {
         `/login?message=You must log in first.&redirectTo=${location.pathname}`
       );
     }
-  });
+    if (error) {
+      alert(error, "errory");
+    }
+  }, [error]);
   return (
     <>
       <MetaData title={"Payment"} />

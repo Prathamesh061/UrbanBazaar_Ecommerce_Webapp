@@ -50,6 +50,18 @@ function DashBoard() {
   const { orders, loading } = useSelector((state) => state.allOrders);
   const { users } = useSelector((state) => state.allUsers);
 
+  let totalAmount = 0;
+
+  orders &&
+    orders.forEach((order) => {
+      totalAmount += order.totalPrice;
+    });
+  useEffect(() => {
+    dispatch(getAdminProducts());
+    dispatch(getAllOrders());
+    dispatch(getAllUsers());
+  }, []);
+
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
     datasets: [
@@ -57,7 +69,7 @@ function DashBoard() {
         label: "Total Amount",
         backgroundColor: ["#ffa506"],
         hoverBackgroundColor: ["#ffa506"],
-        data: [0, 4000],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -72,11 +84,6 @@ function DashBoard() {
       },
     ],
   };
-  useEffect(() => {
-    dispatch(getAdminProducts());
-    dispatch(getAllOrders());
-    dispatch(getAllUsers());
-  }, []);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -114,7 +121,13 @@ function DashBoard() {
         <h2 className="dashboard-header">Dashboard</h2>
         <div className="dashboard-summry">
           <div className="dashboard-total-amount">
-            Total Amount <span>3000</span>
+            Total Amount{" "}
+            <span>
+              {new Intl.NumberFormat("en-HI", {
+                style: "currency",
+                currency: "INR",
+              }).format(totalAmount)}
+            </span>
           </div>
         </div>
 

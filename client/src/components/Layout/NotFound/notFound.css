@@ -1,0 +1,19 @@
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 4rem;
+}
+
+.not-found-container p {
+    text-align: center;
+    font-size: var(--fs-h3);
+}
+
+.link-button {
+    border-radius: 10px;
+    box-shadow: var(--bs);
+}

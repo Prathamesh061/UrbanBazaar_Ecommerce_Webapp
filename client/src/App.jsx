@@ -35,6 +35,7 @@ import Users from "./components/Admin/Users/Users";
 import UpdateUser from "./components/Admin/UpdateUser/UpdateUser";
 import AdminProductReviews from "./components/Admin/AdminProductReviews/AdminProductReviews";
 import Contact from "./components/Contact/Contact";
+import NotFound from "./components/Layout/NotFound/NotFound";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -84,6 +85,7 @@ function App() {
           />
         )}
         <Route path="/success" element={<OrderSuccess />} />
+
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<DashBoard />} />
         <Route path="/admin/products" element={<ProductList />} />
@@ -94,6 +96,8 @@ function App() {
         <Route path="/admin/users/" element={<Users />} />
         <Route path="/admin/user/:id" element={<UpdateUser />} />
         <Route path="/admin/reviews" element={<AdminProductReviews />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

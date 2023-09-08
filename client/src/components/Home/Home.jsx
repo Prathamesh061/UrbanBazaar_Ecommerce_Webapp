@@ -5,16 +5,22 @@ import MetaData from "../Utility/MetaData";
 import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../Layout/Loader/Loader";
+import { useAlert } from "../../contexts/alertContext";
+import { clearErrors } from "../../actions/userAction";
+import Footer from "../Layout/Footer/Footer";
 
 function Home() {
   const dispatch = useDispatch();
-  const { loading, error, products, productsCount } = useSelector(
-    (state) => state.products
-  );
-
+  const { loading, error, products } = useSelector((state) => state.products);
+  const alert = useAlert();
   useEffect(() => {
     dispatch(getProduct({}));
-  }, [dispatch]);
+
+    if (error) {
+      alert(error, "errory");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error]);
 
   return (
     <>
@@ -32,6 +38,7 @@ function Home() {
           </div>
         </div>
       )}
+      <Footer />
     </>
   );
 }
